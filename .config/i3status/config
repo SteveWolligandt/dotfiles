@@ -1,0 +1,50 @@
+general {
+  output_format = "i3bar"
+  colors = true
+  color_good = "#009624"
+  color_degraded = "#FFEB3B"
+  color_bad = "#FF0000"
+}
+order += "ethernet enp0s25"
+order += "cpu_usage"
+order += "cpu_temperature 1"
+order += "cpu_temperature 2"
+order += "cpu_temperature 3"
+order += "cpu_temperature 4"
+order += "tztime berlin"
+order += "memory"
+
+cpu_usage {
+	format = "CPU_0: %cpu0|CPU_1: %cpu1|CPU_2: %cpu2|CPU_3: %cpu3"
+}
+memory {
+        format = "%used / %total"
+}
+
+ethernet enp0s25 { 
+  format_up = "E: %ip (%speed)"
+  format_down = "E: down"
+}
+tztime berlin {
+  format = "%H:%M:%S"
+  timezone = "Europe/Berlin"
+}
+load {
+  format = "%5min"
+}
+cpu_temperature 1 {
+  format = "T: %degrees °C"
+  path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp1_input"
+}
+cpu_temperature 2 {
+  format = "T: %degrees °C"
+  path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp2_input"
+}
+cpu_temperature 3 {
+  format = "T: %degrees °C"
+  path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp3_input"
+}
+cpu_temperature 4 {
+  format = "T: %degrees °C"
+  path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp4_input"
+}

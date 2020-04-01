@@ -42,10 +42,6 @@ bindsym $mod+Shift+q kill
 #set $inactive-text-color #676E7D
 #set $urgent-bg-color     #E53935
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
-#bindsym $mod+d exec rofi -show run -lines 4 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
-#bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -190,10 +186,45 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+# class                 border  bground text    indicator child_border
+client.focused          #1976D2 #1976D2 #FFFFFF #1976D2   #1976D2
+client.focused_inactive #333333 #333333 #FFFFFF #484E50   #484E50
+client.unfocused        #333333 #333333 #888888 #292D2E   #292D2E
+client.urgent           #C4001D #C4001D #FFFFFF #C4001D   #C4001D
+client.placeholder      #0C0C0C #0C0C0C #FFFFFF #0C0C0C   #0C0C0C
+
+client.background       #FFFFFF
+
 bar {
-        status_command i3status
+  colors {
+    background #000000
+    statusline #FFFFFF
+    separator  #666666
+
+    focused_workspace  #004BA0 #004BA0 #FFFFFF
+    active_workspace   #222222 #222222 #FFFFFF
+    inactive_workspace #222222 #222222 #888888
+    urgent_workspace   #C4001D #C4001D #FFFFFF
+    binding_mode       #C4001D #C4001D #FFFFFF
+  }
+  status_command i3status
 }
 
+# start dmenu (a program launcher)
+#bindsym $mod+d exec rofi -show run -lines 4 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
+#bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
+bindsym $mod+d exec "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#1976D2' -sf '#EEEEEE' -fn 'monospace-10' -p 'dmenu>'"
+
+
+~/.config/i3status/config
+general {
+  output_format = "i3bar"
+  colors = true
+  color_good = "#00FF00"
+  color_degraded = "#FFFF00"
+  color_bad = "#FF0000"
+}
+Extract Colors from Images | i3 Userguide | i3status Userguide | Fork Configurator | Made by Thomas Hunter II
 exec picom --experimental-backends --backend glx
 exec feh --bg-fill ~/.config/i3/wallpapers/tree.jpg
-#exec xrandr --output DVI-D-0 --primary --output DVI-I-1 --right-of DVI-D-0
+exec xrandr --output DVI-D-0 --primary --output DVI-I-1 --right-of DVI-D-0
