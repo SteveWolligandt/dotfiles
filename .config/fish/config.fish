@@ -13,7 +13,7 @@ set -g theme_display_git yes
 #set -g theme_display_git_ahead_verbose yes
 #set -g theme_display_git_dirty_verbose yes
 #set -g theme_display_git_stashed_verbose yes
-#set -g theme_display_git_master_branch yes
+#set -g theme_display_git_master_branch no
 #set -g theme_git_worktree_support yes
 set -g theme_use_abbreviated_branch_name yes
 set -g theme_display_vagrant yes
@@ -24,7 +24,7 @@ set -g theme_display_virtualenv no
 set -g theme_display_ruby no
 set -g theme_display_nvm yes
 set -g theme_display_user ssh
-set -g theme_display_hostname ssh
+set -g theme_display_hostname yes
 set -g theme_display_vi no
 set -g theme_display_date yes
 set -g theme_display_cmd_duration yes
