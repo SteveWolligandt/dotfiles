@@ -226,7 +226,7 @@ general {
 }
 Extract Colors from Images | i3 Userguide | i3status Userguide | Fork Configurator | Made by Thomas Hunter II
 exec picom --experimental-backends --backend glx
-exec feh --bg-fill ~/.config/i3/wallpapers/tree.jpg
+exec feh --randomize --bg-fill ~/.config/i3/wallpapers/
 #exec xrandr --output DVI-D-0 --primary --output DVI-I-1 --right-of DVI-D-0
 
 new_window normal 0 px
