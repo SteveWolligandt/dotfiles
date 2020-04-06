@@ -215,8 +215,6 @@ bar {
 #bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
 bindsym $mod+d exec "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#1976D2' -sf '#EEEEEE' -fn 'monospace-10' -p 'dmenu>'"
 
-
-~/.config/i3status/config
 general {
   output_format = "i3bar"
   colors = true
