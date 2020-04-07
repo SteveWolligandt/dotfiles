@@ -216,7 +216,6 @@ bar {
 bindsym $mod+d exec "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#1976D2' -sf '#EEEEEE' -fn 'monospace-10' -p 'dmenu>'"
 
 general {
-  output_format = "i3bar"
   colors = true
   color_good = "#00FF00"
   color_degraded = "#FFFF00"
@@ -224,7 +223,7 @@ general {
 }
 Extract Colors from Images | i3 Userguide | i3status Userguide | Fork Configurator | Made by Thomas Hunter II
 exec picom --experimental-backends --backend glx
-exec feh --randomize --bg-fill ~/.config/i3/wallpapers/
+exec feh --randomize --bg-fill ~/.config/i3/wallpapers/*
 #exec xrandr --output DVI-D-0 --primary --output DVI-I-1 --right-of DVI-D-0
 
 new_window normal 0 px

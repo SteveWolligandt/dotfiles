@@ -50,29 +50,19 @@ Plug 'tpope/vim-fugitive'
 Plug 'tikhomirov/vim-glsl'
 Plug 'w0rp/ale'
 Plug 'easymotion/vim-easymotion'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 Plug 'SteveWolligandt/vim-monokai'
 Plug 'lervag/vimtex'
-Plug 'Konfekt/FastFold'
-Plug 'matze/vim-tex-fold'
 Plug 'majutsushi/tagbar'
-Plug 'airblade/vim-gitgutter'
-Plug 'vhdirk/vim-cmake'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
 Plug 'mhinz/neovim-remote'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jreybert/vimagit'
-Plug 'jceb/vim-orgmode'
-"Plug 'bling/vim-bufferline'
 call plug#end()
 
 set termguicolors
-set updatetime=250
+"set updatetime=250
 colorscheme monokai
 highlight Search guibg='Purple' guifg='NONE'
 
@@ -291,7 +281,8 @@ let g:ale_completion_enabled = 0
 let g:ale_c_build_dir = './build'
 
 "let g:ale_linters = { 'cpp': ['clangtidy', 'cppcheck'] }
-let g:ale_linters = { 'cpp': ['clangtidy'] }
+let g:ale_linters = { 'cpp': ['cppcheck'] }
+"let g:ale_linters = { 'cpp': ['clangtidy'] }
 
 let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra -pedantic'
 let g:ale_cpp_clangcheck_options = '-p ./build'
@@ -309,7 +300,7 @@ let g:ale_cpp_flawfinder_options = ''
 let g:ale_cpp_gcc_executable = 'gcc'
 let g:ale_cpp_gcc_options = '-std=c++17 -Wall -Wextra -pedantic'
 
-let g:ale_enabled = 1
+let g:ale_enabled = 0
 let g:ale_fix_on_save = 0
 let g:ale_fixers = {}
 
