@@ -1,15 +1,18 @@
 let g:powerline_loaded = 1
-syntax on
-set number
 set fillchars=""
 set laststatus=2
 set mouse=a
-set shell=tmux
 set expandtab
 set shiftwidth=2
 set softtabstop=2
-set exrc
-set secure
+set cursorline
+set number
+set termguicolors
+set updatetime=250
+
+"set shell=tmux
+"set exrc
+"set secure
 
 map <C-up> :tabr<cr>
 map <C-down> :tabl<cr>
@@ -39,6 +42,7 @@ nmap <F10> :Gdiff <CR>
 call plug#begin()
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-clang'
+Plug 'w0rp/ale'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -48,7 +52,6 @@ Plug 'rhysd/vim-clang-format'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-fugitive'
 Plug 'tikhomirov/vim-glsl'
-Plug 'w0rp/ale'
 Plug 'easymotion/vim-easymotion'
 Plug 'SteveWolligandt/vim-monokai'
 Plug 'lervag/vimtex'
@@ -61,9 +64,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'jreybert/vimagit'
 call plug#end()
 
-set termguicolors
-"set updatetime=250
 colorscheme monokai
+syntax on
 highlight Search guibg='Purple' guifg='NONE'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -74,7 +76,6 @@ highlight Search guibg='Purple' guifg='NONE'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:airline_powerline_fonts = 1
 let g:airline_theme='powerlineish'
 
