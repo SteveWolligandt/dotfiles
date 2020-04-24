@@ -3,9 +3,10 @@ set -g theme_powerline_fonts yes
 
 alias cninja 'cmake -GNinja'
 alias ccninja 'ccmake -GNinja'
+alias vi 'nvim'
+alias vim 'nvim'
 
 source /usr/share/autojump/autojump.fish
-
 
 set -g theme_display_git yes
 #set -g theme_display_git_dirty yes

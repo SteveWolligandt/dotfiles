@@ -10,6 +10,7 @@ set cursorline
 set number
 set termguicolors
 set updatetime=250
+set shortmess=I
 
 set shell=tmux
 "set exrc
