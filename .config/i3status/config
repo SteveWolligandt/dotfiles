@@ -5,22 +5,14 @@ general {
   color_degraded = "#FFEB3B"
   color_bad = "#FF0000"
 }
+order += "wireless wlp3s0"
 order += "ethernet enp0s25"
-order += "cpu_usage"
-order += "cpu_temperature 1"
-order += "cpu_temperature 2"
-order += "cpu_temperature 3"
-order += "cpu_temperature 4"
 order += "tztime berlin"
-order += "memory"
 
-cpu_usage {
-	format = "CPU_0: %cpu0|CPU_1: %cpu1|CPU_2: %cpu2|CPU_3: %cpu3"
+wireless wlp3s0 {
+	format_up = " W: (%quality at %essid) %ip "
+	format_down = " ☡ WiFi "
 }
-memory {
-        format = "%used / %total"
-}
-
 ethernet enp0s25 { 
   format_up = "E: %ip (%speed)"
   format_down = "E: down"
