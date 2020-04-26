@@ -1,6 +1,6 @@
 #!/bin/sh
 lock() {
-    i3lock
+    i3lock -i ~/.config/i3/i3lock.png
 }
 
 case "$1" in
