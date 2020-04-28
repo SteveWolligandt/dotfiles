@@ -221,7 +221,7 @@ bar {
     binding_mode       #C4001D #C4001D #FFFFFF
   }
   #status_command i3status
-  status_command bumblebee-status -m spotify brightness weather pasink time battery -p time.format="%H:%M" -t gruvbox-powerline -p weather.location="Magdeburg" weather.showcity="false"
+  status_command bumblebee-status -m spotify memory weather pasink time battery -p time.format="%H:%M" -t gruvbox-powerline -p weather.location="Magdeburg" weather.showcity="false"
 }
 
 # start dmenu (a program launcher)
@@ -231,6 +231,7 @@ bindsym $mod+d exec "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#1976D2' -sf '#E
 
 exec picom --experimental-backends --backend glx
 exec feh --randomize --bg-fill ~/.config/i3/wallpapers/*
-#exec xrandr --output DVI-D-0 --primary --output DVI-I-1 --right-of DVI-D-0
+exec xrandr --output DVI-D-0 --output DVI-I-1 --right-of DVI-D-0 --primary 
 
 new_window normal 0 px
+for_window [title="ibfv"] floating enable

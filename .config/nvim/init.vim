@@ -12,7 +12,7 @@ set termguicolors
 set updatetime=250
 set shortmess=I
 
-set shell=tmux
+set shell=/bin/bash
 "set exrc
 "set secure
 
