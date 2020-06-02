@@ -1,0 +1,3 @@
+rofi.theme:           /home/steve/.local/share/rofi/themes/slate.rasi
+rofi.show-icons:      true
+rofi.drun-icon-theme: ePapirus
