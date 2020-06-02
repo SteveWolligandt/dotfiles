@@ -39,8 +39,8 @@ nmap <leader>h<F5> :Files ~/<CR>
 nnoremap <F6> :ALENext<CR>
 nmap <leader><F6> :ALEPrevious<CR>
 
-nnoremap <F7> :TagbarToggle<CR>
-nnoremap <F8> :NERDTreeToggle<CR>
+nnoremap <F7> :NERDTreeToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
 
 nmap <F9> :Magit <CR>
 nmap <F10> :Gdiff <CR>
@@ -70,6 +70,7 @@ Plug 'mhinz/neovim-remote'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jreybert/vimagit'
+Plug 'rudrab/vimf90'
 call plug#end()
 
 colorscheme monokai
