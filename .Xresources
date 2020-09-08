@@ -1,0 +1,96 @@
+!--------------------------
+! ROFI Color theme
+! -------------------------
+rofi.color-enabled: true
+!rofi.color-window: argb:ee273238, #273238, argb:3a1e2529
+rofi.color-window:      #000, #000, #000
+rofi.color-normal: argb:00273238, #c1c1c1, argb:3a273238, #394249, #ffffff
+rofi.color-active: argb:00273238, #80cbc4, argb:3a273238, #394249, #80cbc4
+rofi.color-urgent: argb:00273238, #ff1844, argb:3a273238, #394249, #ff1844
+rofi.hide-scrollbar:    true
+!---------------------------------
+! Xft settings
+! --------------------------------
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.rgba: rgb
+Xft.dpi: 190
+Xft.antialias:  true
+Xft.hinting:    true
+Xft.autohint:   false
+!---------------------------------
+! URxvt settings
+! --------------------------------
+URxvt*background:     #1f1f1f
+URxvt*font:           xft:Source Code Pro for Powerline Regular:size=12:hinting=true:style=Regular
+URxvt*boldFont:	      xft:Source Code Pro for Powerline:size=12:hinting=true:style=Bold
+URxvt*italicFont:     xft:Source Code Pro for Powerline:size=12:hinting=true:style=Oblique
+URxvt*boldItalicFont: xft:Source Code Pro for Powerline:size=12:hinting=true:style=Bold Oblique
+URxvt*color0:	#1f1f1f
+URxvt*color1:	#cc0000
+URxvt*color2:	#4e9a06
+URxvt*color3:	#c4a000
+URxvt*color4:	#3465a4
+URxvt*color5:	#75507b
+URxvt*color6:	#06989a
+URxvt*color7:	#d3d7cf
+URxvt*color8:	#555753
+URxvt*color9:	#ef2929
+URxvt*color10:	#8ae234
+URxvt*color11:	#fce94f
+URxvt*color12:	#729fcf
+URxvt*color13:	#ad7fa8
+URxvt*color14:	#34e2e2
+URxvt*color15:	#eeeeec
+URxvt*colorUL:	yellow
+URxvt*fading:	30
+URxvt*foreground:	#839496
+URxvt*geometry:	240x84
+URxvt*mapAlert:	true
+URxvt*matcher.button:	1
+URxvt*mouseWheelScrollPage:	true
+URxvt*perl-ext-common:	default,matcher,resize-font
+URxvt*perl-lib:	/usr/lib/urxvt/perl/
+URxvt*scrollBar:	false
+URxvt*scrollColor:	#777777
+URxvt*scrollTtyKeypress:	true
+URxvt*scrollTtyOutput:	false
+URxvt*scrollWithBuffer:	true
+URxvt*skipScroll:	true
+URxvt*termName:	rxvt-256color
+URxvt*underlineColor:	yellow
+URxvt*urgentOnBell:	false
+URxvt*urlLauncher:	/usr/bin/jumanji
+URxvt*visualBell:	true
+URxvt.background:	#000000
+URxvt.cursorBlink:	false
+URxvt.depth:	32
+URxvt.foreground:	#eeeeee
+URxvt.keysym.C-Down:	perl:font-size:decrease
+URxvt.keysym.C-S-Down:	perl:font-size:decglobal
+URxvt.keysym.C-S-Up:	perl:font-size:incglobal
+URxvt.keysym.C-Up:	perl:font-size:increase
+URxvt.keysym.End:	\033[4~
+URxvt.keysym.Home:	\033[1~
+URxvt.keysym.KP_End:	\033[4~
+URxvt.keysym.KP_Home:	\033[1~
+URxvt.letterSpace:	-1
+URxvt.locale:	true
+URxvt.loginShell:	true
+URxvt.matcher.button:	1
+URxvt.perl-ext-common:	default,matcher
+URxvt.saveLines:	65535
+URxvt.scrollStyle:	rxvt
+URxvt.shading:	20
+URxvt.tintColor:	white
+URxvt.transparent:	true
+URxvt.urlLauncher:	chromium
+URxvt.utf8:	true
+urxvt*background:	#1f1f1f
+urxvt*foreground:	#839496
+urxvt*matcher.button:	1
+urxvt*perl-ext-common:	default,matcher
+urxvt*perl-lib:	/usr/lib/urxvt/perl/
+urxvt*scrollBar:	false
+urxvt*termName:	rxvt-unicode
+urxvt*urlLauncher:	/usr/bin/jumanji
