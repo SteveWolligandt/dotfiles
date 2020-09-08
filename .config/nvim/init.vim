@@ -8,7 +8,6 @@ set shiftwidth=2
 set softtabstop=2
 set cursorline
 set number
-set termguicolors
 set updatetime=250
 set shortmess=I
 
@@ -16,11 +15,7 @@ set shell=/bin/bash
 "set exrc
 "set secure
 
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
+set termguicolors
 
 map <C-up> :tabr<cr>
 map <C-down> :tabl<cr>
@@ -42,14 +37,15 @@ nmap <leader><F6> :ALEPrevious<CR>
 nnoremap <F7> :NERDTreeToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
 
-nmap <F9> :Magit <CR>
+nmap <F9> :cnext <CR>
 nmap <F10> :Gdiff <CR>
 "nmap <F9> :Gstatus <CR>
 "nmap <F10> :Gcommit <CR>
 
 call plug#begin()
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-clang'
+Plug 'deoplete-plugins/deoplete-clang'
+Plug 'zchee/libclang-python3'
 Plug 'w0rp/ale'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -71,10 +67,12 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jreybert/vimagit'
 Plug 'rudrab/vimf90'
+Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
 call plug#end()
 
 colorscheme monokai
-syntax on
+syntax enable
 highlight Search guibg='Purple' guifg='NONE'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -93,26 +91,26 @@ let g:airline_theme='powerlineish'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " We're going to define single-letter keymaps, so don't try to define them
 " in the terminal window.  The debugger CLI should continue accepting text commands.
-function! NvimGdbNoTKeymaps()
-  tnoremap <silent> <buffer> <esc> <c-\><c-n>
-endfunction
-
-let g:nvimgdb_config_override = {
-  \ 'key_next': 'n',
-  \ 'key_step': 's',
-  \ 'key_finish': 'f',
-  \ 'key_continue': 'c',
-  \ 'key_until': 'u',
-  \ 'key_breakpoint': 'b',
-  \ 'set_tkeymaps': "NvimGdbNoTKeymaps",
-  \ }
+"function! NvimGdbNoTKeymaps()
+"  tnoremap <silent> <buffer> <esc> <c-\><c-n>
+"endfunction
+"
+"let g:nvimgdb_config_override = {
+"  \ 'key_next': 'n',
+"  \ 'key_step': 's',
+"  \ 'key_finish': 'f',
+"  \ 'key_continue': 'c',
+"  \ 'key_until': 'u',
+"  \ 'key_breakpoint': 'b',
+"  \ 'set_tkeymaps': "NvimGdbNoTKeymaps",
+"  \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " deoplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:deoplete#enable_at_startup = 0
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/clang/'
+let g:deoplete#enable_at_startup = 1
+"let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+"let g:deoplete#sources#clang#clang_header = '/usr/lib/clang/'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " clangformat
@@ -286,36 +284,36 @@ let g:NERDToggleCheckAllLines = 1
 " ALE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Enable completion where available.
+"" Enable completion where available.
 let g:ale_completion_enabled = 0
-let g:ale_c_build_dir = './build'
-
-"let g:ale_linters = { 'cpp': ['clangtidy', 'cppcheck'] }
-let g:ale_linters = { 'cpp': ['cppcheck'] }
-"let g:ale_linters = { 'cpp': ['clangtidy'] }
-
-let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra -pedantic'
-let g:ale_cpp_clangcheck_options = '-p ./build'
-
-let g:ale_cpp_clangtidy_checks = ['cppcoreguidelines*', '-cppcoreguidelines-pro-type-reinterpret-cast', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-cppcoreguidelines-avoid-magic-numbers', 'cert*', '-cert-err34-c', 'hicpp', 'modernize*', 'performance*', 'readability*', '-readability-magic-numbers', '-readability-isolate-declaration', '-readability-static-accessed-through-instance', -'modernize-use-trailing-return-type']
-let g:ale_cpp_clangtidy_options = ''
-
-let g:ale_cpp_cppcheck_options = ['--enable=style', '--enable=performance', '--enable=portability']
-
-let g:ale_cpp_cpplint_options = ''
-
-let g:ale_cpp_flawfinder_minlevel = 1
-let g:ale_cpp_flawfinder_options = ''
-
-let g:ale_cpp_gcc_executable = 'gcc'
-let g:ale_cpp_gcc_options = '-std=c++17 -Wall -Wextra -pedantic'
-
-let g:ale_enabled = 0
-let g:ale_fix_on_save = 0
-let g:ale_fixers = {}
-
-let g:ale_cursor_detail = 0
-let g:lightline = {}
+"let g:ale_c_build_dir = './build'
+"
+""let g:ale_linters = { 'cpp': ['clangtidy', 'cppcheck'] }
+"let g:ale_linters = { 'cpp': ['cppcheck'] }
+""let g:ale_linters = { 'cpp': ['clangtidy'] }
+"
+"let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra -pedantic'
+"let g:ale_cpp_clangcheck_options = '-p ./build'
+"
+"let g:ale_cpp_clangtidy_checks = ['cppcoreguidelines*', '-cppcoreguidelines-pro-type-reinterpret-cast', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-cppcoreguidelines-avoid-magic-numbers', 'cert*', '-cert-err34-c', 'hicpp', 'modernize*', 'performance*', 'readability*', '-readability-magic-numbers', '-readability-isolate-declaration', '-readability-static-accessed-through-instance', -'modernize-use-trailing-return-type']
+"let g:ale_cpp_clangtidy_options = ''
+"
+"let g:ale_cpp_cppcheck_options = ['--enable=style', '--enable=performance', '--enable=portability']
+"
+"let g:ale_cpp_cpplint_options = ''
+"
+"let g:ale_cpp_flawfinder_minlevel = 1
+"let g:ale_cpp_flawfinder_options = ''
+"
+"let g:ale_cpp_gcc_executable = 'gcc'
+"let g:ale_cpp_gcc_options = '-std=c++17 -Wall -Wextra -pedantic'
+"
+"let g:ale_enabled = 0
+"let g:ale_fix_on_save = 0
+"let g:ale_fixers = {}
+"
+"let g:ale_cursor_detail = 0
+"let g:lightline = {}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " clangformat
@@ -335,7 +333,6 @@ let g:clang_format#detect_style_file = 1
 let g:tex_flavor  = 'latex'
 let g:tex_conceal = ''
 let g:vimtex_fold_manual = 0
-let g:vimtex_latexmk_continuous = 1
 let g:vimtex_compiler_progname = 'nvr'
 
 let g:Tex_IgnoredWarnings = 
