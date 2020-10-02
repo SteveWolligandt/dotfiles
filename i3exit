@@ -1,6 +1,6 @@
 #!/bin/sh
 lock() {
-    i3lock-fancy-rapid 10 5
+    i3lock-fancy-rapid 50 3 && sleep 5 && xset dpms force off
 }
 
 case "$1" in

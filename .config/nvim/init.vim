@@ -10,17 +10,12 @@ set cursorline
 set number
 set updatetime=250
 set shortmess=I
+set termguicolors
 
-set shell=/bin/bash
+"set shell=/bin/bash
 "set exrc
 "set secure
 
-set termguicolors
-
-map <C-up> :tabr<cr>
-map <C-down> :tabl<cr>
-map <C-left> :tabp<cr>
-map <C-right> :tabn<cr>
 nmap <ScrollWheelUp> <C-Y>
 nmap <ScrollWheelDown> <C-E>
 nmap <F3> :nohlsearch <CR>
@@ -38,9 +33,9 @@ nnoremap <F7> :NERDTreeToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
 
 nmap <F9> :cnext <CR>
-nmap <F10> :Gdiff <CR>
-"nmap <F9> :Gstatus <CR>
-"nmap <F10> :Gcommit <CR>
+nmap <F10> :cprev <CR>
+map <F11> :tabp<cr>
+map <F12> :tabn<cr>
 
 call plug#begin()
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -276,7 +271,7 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
-" Enable NERDCommenterToggle to check all selected lines is commented or not 
+" Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 
 
@@ -285,28 +280,28 @@ let g:NERDToggleCheckAllLines = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "" Enable completion where available.
-let g:ale_completion_enabled = 0
+let g:ale_completion_enabled = 1
 "let g:ale_c_build_dir = './build'
 "
-""let g:ale_linters = { 'cpp': ['clangtidy', 'cppcheck'] }
+let g:ale_linters = { 'cpp': ['clangtidy'] }
 "let g:ale_linters = { 'cpp': ['cppcheck'] }
 ""let g:ale_linters = { 'cpp': ['clangtidy'] }
 "
-"let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra -pedantic'
-"let g:ale_cpp_clangcheck_options = '-p ./build'
+let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra -pedantic'
+let g:ale_cpp_clangcheck_options = '-p ./build'
 "
-"let g:ale_cpp_clangtidy_checks = ['cppcoreguidelines*', '-cppcoreguidelines-pro-type-reinterpret-cast', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-cppcoreguidelines-avoid-magic-numbers', 'cert*', '-cert-err34-c', 'hicpp', 'modernize*', 'performance*', 'readability*', '-readability-magic-numbers', '-readability-isolate-declaration', '-readability-static-accessed-through-instance', -'modernize-use-trailing-return-type']
-"let g:ale_cpp_clangtidy_options = ''
-"
-"let g:ale_cpp_cppcheck_options = ['--enable=style', '--enable=performance', '--enable=portability']
-"
+let g:ale_cpp_clangtidy_checks = ['cppcoreguidelines*', '-cppcoreguidelines-pro-type-reinterpret-cast', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-cppcoreguidelines-avoid-magic-numbers', 'cert*', '-cert-err34-c', 'hicpp', 'modernize*', 'performance*', 'readability*', '-readability-magic-numbers', '-readability-isolate-declaration', '-readability-static-accessed-through-instance', -'modernize-use-trailing-return-type']
+let g:ale_cpp_clangtidy_options = ''
+
+let g:ale_cpp_cppcheck_options = ['--enable=style', '--enable=performance', '--enable=portability']
+
 "let g:ale_cpp_cpplint_options = ''
 "
 "let g:ale_cpp_flawfinder_minlevel = 1
 "let g:ale_cpp_flawfinder_options = ''
 "
 "let g:ale_cpp_gcc_executable = 'gcc'
-"let g:ale_cpp_gcc_options = '-std=c++17 -Wall -Wextra -pedantic'
+"let g:ale_cpp_gcc_options = '-std=c++20 -Wall -Wextra -pedantic'
 "
 "let g:ale_enabled = 0
 "let g:ale_fix_on_save = 0
@@ -335,7 +330,7 @@ let g:tex_conceal = ''
 let g:vimtex_fold_manual = 0
 let g:vimtex_compiler_progname = 'nvr'
 
-let g:Tex_IgnoredWarnings = 
+let g:Tex_IgnoredWarnings =
     \'Underfull'."\n".
     \'Overfull'."\n".
     \'specifier changed to'."\n".
