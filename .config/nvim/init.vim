@@ -11,24 +11,47 @@ set number
 set updatetime=250
 set shortmess=I
 set termguicolors
+set foldmethod=syntax
+set foldlevel=20
 
 "set shell=/bin/bash
 "set exrc
 "set secure
+ 
+filetype on
+au BufNewFile,BufRead *.tikz set filetype=tex
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+
+
 
 nmap <ScrollWheelUp> <C-Y>
 nmap <ScrollWheelDown> <C-E>
-nmap <F3> :nohlsearch <CR>
+"nnoremap <silent> `` :nohlsearch<CR>:call minimap#vim#ClearColorSearch()<CR>
+nmap <F2> :nohlsearch <CR>
+nmap <F3> :Files<CR>
 nmap <F4> :UndotreeToggle<CR>
 
-nmap <F5> :Files<CR>
-nmap <leader>l<F5> :Files ~/libs/<CR>
-nmap <leader>p<F5> :Files ~/projects/<CR>
-nmap <leader>h<F5> :Files ~/<CR>
+nmap <leader>cmb :CMake build<CR>
+nmap <leader>cmc :CMake cancel<CR>
+nmap <leader>cmr :CMake build_and_run<CR>
 
-nnoremap <F6> :ALENext<CR>
-nmap <leader><F6> :ALEPrevious<CR>
+nmap <leader>l<F3> :Files ~/libs/<CR>
+nmap <leader>p<F3> :Files ~/projects/<CR>
+nmap <leader>h<F3> :Files ~/<CR>
 
+nnoremap <F5> :Git<CR>
+nnoremap <F6> :Git commit<CR>
 nnoremap <F7> :NERDTreeToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
 
@@ -37,43 +60,16 @@ nmap <F10> :cprev <CR>
 map <F11> :tabp<cr>
 map <F12> :tabn<cr>
 
-call plug#begin()
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-clang'
-Plug 'zchee/libclang-python3'
-Plug 'w0rp/ale'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'rhysd/vim-clang-format'
-Plug 'mbbill/undotree'
-Plug 'tpope/vim-fugitive'
-Plug 'tikhomirov/vim-glsl'
-Plug 'easymotion/vim-easymotion'
-Plug 'SteveWolligandt/vim-monokai'
-Plug 'lervag/vimtex'
-Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'mhinz/neovim-remote'
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'jreybert/vimagit'
-Plug 'rudrab/vimf90'
-Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-speeddating'
-call plug#end()
+
+lua require('plugins')
+lua require('treesitter')
+lua << EOF
+require('Comment').setup({padding = false})
+EOF
 
 colorscheme monokai
 syntax enable
 highlight Search guibg='Purple' guifg='NONE'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vimagit
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"g:magit_discard_untracked_do_delete=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline
@@ -101,19 +97,29 @@ let g:airline_theme='powerlineish'
 "  \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" minimap
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:minimap_width = 20
+"let g:minimap_auto_start = 1
+"let g:minimap_auto_start_win_enter = 1
+"let g:minimap_git_colors = 1
+"let g:minimap_highlight_search = 1
+"let g:minimap_highlight_range = 1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " deoplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:deoplete#enable_at_startup = 1
 "let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 "let g:deoplete#sources#clang#clang_header = '/usr/lib/clang/'
+let g:deoplete#sources#clang#std = {'c': 'c11', 'cpp': 'c++20', 'objc': 'c11', 'objcpp': 'c++1z'}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " clangformat
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map to <leader>cf in C++ code
 "autocmd FileType h,c,cpp,objc nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType h,c,cpp,objc,cu,cuh vnoremap <silent><leader>cf :ClangFormat<CR>
-autocmd FileType h,c,cpp,objc,cu,cuh noremap <silent><leader>Cf :ClangFormat<CR>
+autocmd FileType h,c,cpp,cc,hh,objc,cu,cuh vnoremap <silent><leader>cf :ClangFormat<CR>
+autocmd FileType h,c,cpp,cc,hh,objc,cu,cuh noremap <silent><leader>Cf :ClangFormat<CR>
 " if you install vim-operator-user
 " autocmd FileType h,c,cpp,objc map <buffer><leader>x <Plug>(operator-clang-format)
 let g:clang_format#auto_format = 0
@@ -280,18 +286,18 @@ let g:NERDToggleCheckAllLines = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "" Enable completion where available.
-let g:ale_completion_enabled = 1
-"let g:ale_c_build_dir = './build'
-"
+let g:ale_completion_enabled = 0
+let g:ale_fix_on_save = 0
+let g:ale_c_build_dirs = ['build']
+
 let g:ale_linters = { 'cpp': ['clangtidy'] }
-"let g:ale_linters = { 'cpp': ['cppcheck'] }
-""let g:ale_linters = { 'cpp': ['clangtidy'] }
+let g:ale_cpp_build_dirs = ['build']
 "
-let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra -pedantic'
-let g:ale_cpp_clangcheck_options = '-p ./build'
-"
-let g:ale_cpp_clangtidy_checks = ['cppcoreguidelines*', '-cppcoreguidelines-pro-type-reinterpret-cast', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-cppcoreguidelines-avoid-magic-numbers', 'cert*', '-cert-err34-c', 'hicpp', 'modernize*', 'performance*', 'readability*', '-readability-magic-numbers', '-readability-isolate-declaration', '-readability-static-accessed-through-instance', -'modernize-use-trailing-return-type']
-let g:ale_cpp_clangtidy_options = ''
+let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra -Wpedantic -I/home/steve/libs/tatooine/include'
+let g:ale_fixers = {'cpp': ['clangtidy', 'trim_whitespace']}
+
+let g:ale_cpp_clangtidy_checks = ['-*', 'cppcoreguidelines*', 'cert*', 'hicpp*', 'modernize*', 'performance*', 'readability*', '-cppcoreguidelines-pro-type-reinterpret-cast', '-cppcoreguidelines-pro-bounds-pointer-arithmetic', '-cert-err34-c', '-readability-isolate-declaration', '-readability-static-accessed-through-instance', '-cppcoreguidelines-avoid-magic-numbers', '-readability-magic-numbers','-cppcoreguidelines-avoid-c-arrays','-hicpp-avoid-c-arrays','-modernize-avoid-c-arrays']
+let g:ale_cpp_clangtidy_options = '-std=c++20 -Wall, -Wextra -Wpedantic -I/home/steve/libs/tatooine/include'
 
 let g:ale_cpp_cppcheck_options = ['--enable=style', '--enable=performance', '--enable=portability']
 
@@ -301,7 +307,7 @@ let g:ale_cpp_cppcheck_options = ['--enable=style', '--enable=performance', '--e
 "let g:ale_cpp_flawfinder_options = ''
 "
 "let g:ale_cpp_gcc_executable = 'gcc'
-"let g:ale_cpp_gcc_options = '-std=c++20 -Wall -Wextra -pedantic'
+"let g:ale_cpp_gcc_options = '-std=c++20 -Wall -Wextra -Wpedantic'
 "
 "let g:ale_enabled = 0
 "let g:ale_fix_on_save = 0
@@ -339,3 +345,4 @@ let g:Tex_IgnoredWarnings =
     \'There were undefined references'."\n".
     \'Citation %.%# undefined'."\n".
     \'Double space found.'."\n"
+
