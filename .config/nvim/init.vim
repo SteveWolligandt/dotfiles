@@ -61,8 +61,8 @@ map <F11> :tabp<cr>
 map <F12> :tabn<cr>
 
 
-lua require('plugins')
 lua require('treesitter')
+lua require('plugins')
 lua << EOF
 require('Comment').setup({padding = false})
 EOF
