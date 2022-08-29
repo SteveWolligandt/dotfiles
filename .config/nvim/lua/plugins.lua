@@ -52,16 +52,39 @@ return require('packer').startup(function()
   use 'plasticboy/vim-markdown'
   use 'iamcco/markdown-preview.vim'
 
-  --require('neorg').setup {
-  --  load = {
-  --    ["core.defaults"] = {},
-  --    ["core.norg.dirman"] = {
-  --      config = {
-  --        workspaces = {
-  --          work = "~/notes",
-  --        }
-  --      }
-  --    }
-  --  }
-  --}
+use {
+     "nvim-neorg/neorg",
+     config = function()
+       require('neorg').setup {
+         load = {
+           ["core.defaults"] = {},
+           ["core.autocommands"] = {},
+           ["core.export"] = {config={}},
+           ["core.export.markdown"] = {config={}},
+           ["core.integrations.treesitter"] = {config={}},
+           --["core.norg.completion"] = {config = {engine="nvim-cmp"}},
+           ["core.norg.dirman"] = {
+             config = {
+               workspaces = {
+                 uni = "~\\notes\\uni",
+                 home = "~\\notes\\home",
+                 ascent = "~\\notes\\ascent",
+               }
+             }
+           },
+           ["core.norg.concealer"] = {config={}},
+           ["core.keybinds"] = {
+             config = {
+               hook = function(keybinds)
+                 -- Binds the `gtd` key in `norg` mode to execute `:echo 'Hello'`
+                 keybinds.map("norg", "n", "<C-Space>", "core.norg.qol.todo_items.todo.task_done")
+               end,
+             }
+           }
+         }
+       }
+     end,
+     requires = {
+       "nvim-lua/plenary.nvim",
+       --"rsh7th/nvim-cmp"                                                                                                            83     }
 end)
