@@ -52,7 +52,7 @@ return require('packer').startup(function()
   use 'plasticboy/vim-markdown'
   use 'iamcco/markdown-preview.vim'
 
-use {
+  use {
      "nvim-neorg/neorg",
      config = function()
        require('neorg').setup {
@@ -88,4 +88,5 @@ use {
        "nvim-lua/plenary.nvim",
        --"rsh7th/nvim-cmp"
      }
+  }
 end)
