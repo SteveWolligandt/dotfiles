@@ -86,5 +86,6 @@ use {
      end,
      requires = {
        "nvim-lua/plenary.nvim",
-       --"rsh7th/nvim-cmp"                                                                                                            83     }
+       --"rsh7th/nvim-cmp"
+     }
 end)
