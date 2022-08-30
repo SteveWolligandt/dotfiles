@@ -72,6 +72,7 @@ return require('packer').startup(function()
                }
              }
            },
+           ["core.norg.qol.todo_items"] = {config = {}},
            ["core.norg.concealer"] = {config={}},
            ["core.keybinds"] = {
              config = {
