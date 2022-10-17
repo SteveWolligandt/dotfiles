@@ -147,32 +147,37 @@ let g:ale_fix_on_save = 0
 let g:ale_c_build_dirs = ['build']
 
 let g:ale_linters = { 'cpp': ['clangtidy'] }
-let g:ale_cpp_build_dirs = ['build']
+let g:ale_cpp_build_dirs = ['build', 'build/linux-debug', 'build/linux-release']
 "
 let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra -Wpedantic -I/home/steve/libs/tatooine/include'
 let g:ale_fixers = {'cpp': ['clangtidy', 'trim_whitespace']}
 
 let g:ale_cpp_clangtidy_checks = [
- \'-*',
- \'cppcoreguidelines*',
- \'cert*',
- \'hicpp*',
- \'modernize*',
- \'performance*',
- \'readability*',
- \'-cppcoreguidelines-pro-type-reinterpret-cast',
- \'-cppcoreguidelines-pro-bounds-pointer-arithmetic',
- \'-cert-err34-c',
- \'-readability-isolate-declaration',
- \'-readability-static-accessed-through-instance',
- \'-cppcoreguidelines-avoid-magic-numbers',
- \'-readability-magic-numbers',
- \'-cppcoreguidelines-avoid-c-arrays',
- \'-hicpp-avoid-c-arrays',
- \'-modernize-avoid-c-arrays']
-let g:ale_cpp_clangtidy_options = 
-      \'-std=c++20 -Wall -Wextra -Wpedantic'
-
+\ '-*',
+\ 'cppcoreguidelines*',
+\ '-cppcoreguidelines-pro-type-reinterpret-cast',
+\ '-cppcoreguidelines-pro-bounds-pointer-arithmetic',
+\ '-cppcoreguidelines-avoid-magic-numbers', 
+\ '-cppcoreguidelines-avoid-c-arrays',
+\ 
+\ 'cert*',
+\ '-cert-err34-c',
+\ 
+\ 'hicpp*',
+\ '-hicpp-avoid-c-arrays',
+\ 
+\ 'modernize*',
+\ '-modernize-avoid-c-arrays',
+\ 
+\ 'performance*',
+\ 
+\ 'readability*',
+\ '-readability-isolate-declaration',
+\ '-readability-static-accessed-through-instance',
+\ '-readability-magic-numbers',
+\ '-readability-identifier-length'
+\]
+let g:ale_cpp_clangtidy_options = '-std=c++20'
 let g:ale_cpp_cppcheck_options = ['--enable=style', '--enable=performance', '--enable=portability']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -8,16 +8,17 @@ rofi.color-normal: argb:00273238, #c1c1c1, argb:3a273238, #394249, #ffffff
 rofi.color-active: argb:00273238, #80cbc4, argb:3a273238, #394249, #80cbc4
 rofi.color-urgent: argb:00273238, #ff1844, argb:3a273238, #394249, #ff1844
 rofi.hide-scrollbar:    true
+rofi.terminal:          termite
 !---------------------------------
 ! Xft settings
 ! --------------------------------
-Xft.lcdfilter:  lcddefault
-Xft.hintstyle:  hintfull
-Xft.rgba: rgb
-Xft.dpi: 190
-Xft.antialias:  true
-Xft.hinting:    true
-Xft.autohint:   false
+!Xft.lcdfilter:  lcddefault
+!Xft.hintstyle:  hintfull
+!Xft.rgba: rgb
+!Xft.dpi: 200
+!Xft.antialias:  true
+!Xft.hinting:    true
+!Xft.autohint:   false
 !---------------------------------
 ! URxvt settings
 ! --------------------------------
@@ -72,7 +73,7 @@ URxvt.matcher.button:	1
 URxvt.saveLines:	65535
 URxvt.shading:	20
 URxvt.tintColor:	white
-URxvt.transparent:	true
+URxvt.transparent:	false
 URxvt.urlLauncher:	brave
 URxvt.utf8:	true
 urxvt*matcher.button:	1

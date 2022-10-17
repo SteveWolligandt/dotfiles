@@ -26,7 +26,7 @@ font pango:Source Code Pro for Powerline, FontAwesome Regular, Icons 10
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy-rapid 100 5 --nofork
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy-rapid 100 5 --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -44,12 +44,10 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec gnome-terminal
 bindsym $mod+F1 exec brave
 bindsym $mod+F2 exec thunderbird
 bindsym $mod+F3 exec thunar
-bindsym $mod+F4 exec brave
-#bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -175,6 +173,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 bindsym --release Print exec "scrot -s $HOME/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png"
+bindsym --release Alt+Print exec "scrot -s $HOME/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png"
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -225,21 +224,20 @@ bar {
     urgent_workspace   #C4001D #C4001D #FFFFFF
     binding_mode       #C4001D #C4001D #FFFFFF
   }
-  status_command bumblebee-status -m spotify memory weather pasink time battery -p time.format="%H:%M" -t gruvbox-powerline -p weather.location="Magdeburg" weather.showcity="false"
+  status_command bumblebee-status -m spotify memory weather pasink time -p time.format="%H:%M" -t gruvbox-powerline -p weather.location="Magdeburg" weather.showcity="false"
 }
 
-# start dmenu (a program launcher)
-#bindsym $mod+d exec rofi -show run -lines 4 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
-#bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
-#bindsym $mod+d exec "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#1976D2' -sf '#EEEEEE' -fn 'monospace-10' -p 'dmenu>'"
 bindsym $mod+d exec rofi -show drun -show-icons
 bindsym $mod+Tab exec --no-startup-id rofi -modi combi -combi-modi window -show combi
 
 exec picom --experimental-backends --backend glx
-exec feh --randomize --bg-fill ~/.config/i3/wallpapers/*
+#exec feh --randomize --bg-fill ~/.config/i3/wallpapers/*
 exec xrandr --output DP-2 --left-of DP-4
 exec alttab -fg "#d58681" -bg "#4a4a4a" -frame "#eb564d" -t 128x150 -i 127x64
+exec_always --no-startupid flashfocus
 
-new_window normal 0 px
+#new_window normal 0 px
+default_border normal 0 px
 for_window [title="ibfv"] floating enable
+for_window [title="blueprints-example"] floating enable
 for_window [class="^.*"] border pixel 1
