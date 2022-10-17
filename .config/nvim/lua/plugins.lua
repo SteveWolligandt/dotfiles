@@ -1,19 +1,36 @@
 return require('packer').startup(function()
-
   use 'wbthomason/packer.nvim'
 
+-- Language
+  use {'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
+  use 'deoplete-plugins/deoplete-clang'
+  use 'zchee/libclang-python3'
+  use 'sbdchd/neoformat'
+  use 'w0rp/ale'
   use {
     'numToStr/Comment.nvim',
     config = function()
       require('Comment').setup()
     end
   }
-  use {'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
-  use 'deoplete-plugins/deoplete-clang'
-  use 'zchee/libclang-python3'
-  use 'w0rp/ale'
+
+-- Airline
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
+
+-- Views
+  use 'mbbill/undotree'
+  use 'scrooloose/nerdtree'
+
+  use 'majutsushi/tagbar'
+  use 'easymotion/vim-easymotion'
+  use 'tpope/vim-surround'
+
+-- git
+  use 'tpope/vim-fugitive'
+  use 'airblade/vim-gitgutter'
+
+-- Telescope
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = {'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep'}
@@ -22,38 +39,75 @@ return require('packer').startup(function()
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-  use 'sbdchd/neoformat'
-  use 'mbbill/undotree'
-  use 'tpope/vim-fugitive'
-  use 'easymotion/vim-easymotion'
-  use 'SteveWolligandt/vim-monokai'
+
+-- Latex
   use 'lervag/vimtex'
-  use 'majutsushi/tagbar'
-  use 'tpope/vim-surround'
-  use 'scrooloose/nerdtree'
-  use 'mhinz/neovim-remote'
-  use {'Shatur/neovim-cmake',
-        requires = {'nvim-lua/plenary.nvim',
-                    'mfussenegger/nvim-dap'}
-      }
-  use {'nvim-treesitter/nvim-treesitter',
-       run = ':TSUpdate'}
 
 -- Syntax
   use 'cespare/vim-toml'
   use 'khaveesh/vim-fish-syntax'
   use 'tikhomirov/vim-glsl'
+  use {'nvim-treesitter/nvim-treesitter',
+       run = ':TSUpdate'}
+  use 'SteveWolligandt/vim-monokai'
 
 -- tmux
+  use 'tmux-plugins/vim-tmux-focus-events'
   use 'roxma/vim-tmux-clipboard'
   use 'christoomey/vim-tmux-navigator'
+  use 'mhinz/neovim-remote'
+
+-- CMake
+  use {'Shatur/neovim-cmake',
+        requires = {'nvim-lua/plenary.nvim',
+                    'mfussenegger/nvim-dap'}
+      }
 
 --Fortran
   use 'rudrab/vimf90'
   use 'SirVer/ultisnips'
+  -- use 'neoclide/coc.nvim'
 
 --Markdown
   use 'godlygeek/tabular'
   use 'plasticboy/vim-markdown'
   use 'iamcco/markdown-preview.vim'
+  
+-- Neorg
+  use {
+     "nvim-neorg/neorg",
+     config = function()
+       require('neorg').setup {
+         load = {
+           ["core.defaults"] = {},
+           ["core.autocommands"] = {},
+           ["core.export"] = {config={}},
+           ["core.export.markdown"] = {config={}},
+           ["core.integrations.treesitter"] = {config={}},
+           --["core.norg.completion"] = {config = {engine="nvim-cmp"}},
+           ["core.norg.dirman"] = {
+             config = {
+               workspaces = {
+                 notes = "~\\notes",
+               }
+             }
+           },
+           ["core.norg.qol.todo_items"] = {config = {}},
+           ["core.norg.concealer"] = {config={}},
+           ["core.keybinds"] = {
+             config = {
+               hook = function(keybinds)
+                 -- Binds the `gtd` key in `norg` mode to execute `:echo 'Hello'`
+                 keybinds.map("norg", "n", "<C-Space>", "core.norg.qol.todo_items.todo.task_done")
+               end,
+             }
+           }
+         }
+       }
+     end,
+     requires = {
+       "nvim-lua/plenary.nvim",
+       --"rsh7th/nvim-cmp"
+     }
+  }
 end)
