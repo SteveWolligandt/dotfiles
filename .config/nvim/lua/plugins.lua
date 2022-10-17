@@ -1,5 +1,4 @@
 return require('packer').startup(function()
-  -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
   use {
@@ -8,15 +7,21 @@ return require('packer').startup(function()
       require('Comment').setup()
     end
   }
-  use {'Shougo/deoplete.nvim',  run = ':UpdateRemotePlugins' }
+  use {'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
   use 'deoplete-plugins/deoplete-clang'
   use 'zchee/libclang-python3'
   use 'w0rp/ale'
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
-  use 'junegunn/fzf'
-  use 'junegunn/fzf.vim'
-  use 'rhysd/vim-clang-format'
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    requires = {'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep'}
+  }
+  use 'nvim-telescope/telescope-ui-select.nvim'
+  use {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+  use 'sbdchd/neoformat'
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
   use 'easymotion/vim-easymotion'
@@ -45,23 +50,9 @@ return require('packer').startup(function()
 --Fortran
   use 'rudrab/vimf90'
   use 'SirVer/ultisnips'
-  -- use 'neoclide/coc.nvim'
 
 --Markdown
   use 'godlygeek/tabular'
   use 'plasticboy/vim-markdown'
   use 'iamcco/markdown-preview.vim'
-
-  --require('neorg').setup {
-  --  load = {
-  --    ["core.defaults"] = {},
-  --    ["core.norg.dirman"] = {
-  --      config = {
-  --        workspaces = {
-  --          work = "~/notes",
-  --        }
-  --      }
-  --    }
-  --  }
-  --}
 end)
