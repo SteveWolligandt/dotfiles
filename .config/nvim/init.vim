@@ -73,6 +73,7 @@ highlight Search guibg='Purple' guifg='NONE'
 let g:airline_powerline_fonts = 1
 let g:airline_theme='powerlineish'
 
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " deoplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -111,6 +112,7 @@ nnoremap <leader>th <cmd>Telescope help_tags<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERD Commenter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 0
 
@@ -134,6 +136,7 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ALE
