@@ -1,4 +1,5 @@
-let g:python3_host_prog = "/usr/bin/python3"
+"let g:python3_host_prog = '/usr/bin/python3'
+"let g:python3_host_prog = 'C:\Users\steve\AppData\Local\Microsoft\WindowsApps\python3.exe'
 let g:powerline_loaded = 1
 set fillchars=""
 set laststatus=2

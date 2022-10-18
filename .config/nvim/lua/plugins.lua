@@ -75,6 +75,17 @@ return require('packer').startup(function()
   
 -- Neorg
   use {
+    "folke/zen-mode.nvim",
+    config = function()
+      require("zen-mode").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      }
+    end
+  }
+
+  use {
      "nvim-neorg/neorg",
      config = function()
        require('neorg').setup {
@@ -101,6 +112,9 @@ return require('packer').startup(function()
                  keybinds.map("norg", "n", "<C-Space>", "core.norg.qol.todo_items.todo.task_done")
                end,
              }
+           },
+           ["core.presenter"] = {
+             config = { zen_mode = "zen-mode" }
            }
          }
        }
@@ -110,4 +124,6 @@ return require('packer').startup(function()
        --"rsh7th/nvim-cmp"
      }
   }
+-- Games
+  use 'alec-gibson/nvim-tetris'
 end)
