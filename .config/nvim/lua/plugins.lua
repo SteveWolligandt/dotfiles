@@ -1,3 +1,5 @@
+vim.cmd [[packadd packer.nvim]]
+
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
@@ -86,43 +88,47 @@ return require('packer').startup(function()
   }
 
   use {
-     "nvim-neorg/neorg",
-     config = function()
-       require('neorg').setup {
-         load = {
-           ["core.defaults"] = {},
+    "nvim-neorg/neorg",
+    config = function()
+      require('neorg').setup {
+        load = {
+          ["core.defaults"] = {},
            ["core.autocommands"] = {},
            ["core.export"] = {config={}},
            ["core.export.markdown"] = {config={}},
            ["core.integrations.treesitter"] = {config={}},
            --["core.norg.completion"] = {config = {engine="nvim-cmp"}},
-           ["core.norg.dirman"] = {
-             config = {
-               workspaces = {
-                 notes = "~\\notes",
-               }
-             }
-           },
-           ["core.norg.qol.todo_items"] = {config = {}},
-           ["core.norg.concealer"] = {config={}},
-           ["core.keybinds"] = {
-             config = {
-               hook = function(keybinds)
-                 -- Binds the `gtd` key in `norg` mode to execute `:echo 'Hello'`
-                 keybinds.map("norg", "n", "<C-Space>", "core.norg.qol.todo_items.todo.task_done")
-               end,
-             }
-           },
-           ["core.presenter"] = {
-             config = { zen_mode = "zen-mode" }
-           }
-         }
-       }
-     end,
-     requires = {
-       "nvim-lua/plenary.nvim",
-       --"rsh7th/nvim-cmp"
-     }
+          ["core.norg.dirman"] = {
+            config = {
+              workspaces = {
+                notes = "~\\neorg\\notes",
+                gtd = "~\\neorg\\gtd",
+              }
+            }
+          },
+          ["core.gtd.base"] = {
+            config = { workspace = "gtd" }
+          },
+          ["core.norg.qol.todo_items"] = {config = {}},
+          ["core.norg.concealer"] = {config={}},
+          ["core.keybinds"] = {
+            config = {
+              hook = function(keybinds)
+                -- Binds the `gtd` key in `norg` mode to execute `:echo 'Hello'`
+                keybinds.map("norg", "n", "<C-Space>", "core.norg.qol.todo_items.todo.task_done")
+              end,
+            }
+          },
+          ["core.presenter"] = {
+            config = { zen_mode = "zen-mode" }
+          }
+        }
+      }
+    end,
+    requires = {
+      "nvim-lua/plenary.nvim",
+      --"rsh7th/nvim-cmp"
+    }
   }
 -- Games
   use 'alec-gibson/nvim-tetris'
