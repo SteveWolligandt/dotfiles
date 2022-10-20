@@ -32,15 +32,17 @@ return require('packer').startup(function()
   use 'tpope/vim-fugitive'
   use 'airblade/vim-gitgutter'
 
--- Telescope
+-- telescope
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = {'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep'}
   }
   use 'nvim-telescope/telescope-ui-select.nvim'
+  use 'nvim-telescope/telescope-dap.nvim'
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+  use 'nvim-telescope/telescope-packer.nvim'
 
 -- Latex
   use 'lervag/vimtex'
@@ -62,7 +64,8 @@ return require('packer').startup(function()
 -- CMake
   use {'Shatur/neovim-cmake',
         requires = {'nvim-lua/plenary.nvim',
-                    'mfussenegger/nvim-dap'}
+                    'mfussenegger/nvim-dap',
+                    'mfussenegger/nvim-dap-python',}
       }
 
 --Fortran
@@ -93,10 +96,10 @@ return require('packer').startup(function()
       require('neorg').setup {
         load = {
           ["core.defaults"] = {},
-           ["core.autocommands"] = {},
-           ["core.export"] = {config={}},
-           ["core.export.markdown"] = {config={}},
-           ["core.integrations.treesitter"] = {config={}},
+          ["core.autocommands"] = {},
+          ["core.export"] = {config={}},
+          ["core.export.markdown"] = {config={}},
+          ["core.integrations.treesitter"] = {config={}},
            --["core.norg.completion"] = {config = {engine="nvim-cmp"}},
           ["core.norg.dirman"] = {
             config = {

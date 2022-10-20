@@ -44,7 +44,10 @@ nmap <F4> :UndotreeToggle<CR>
 
 nmap <leader>cmb :CMake build<CR>
 nmap <leader>cmc :CMake cancel<CR>
+nmap <leader>cmsb :CMake select_build_type<CR>
+nmap <leader>cmst :CMake select_target<CR>
 nmap <leader>cmr :CMake build_and_run<CR>
+nmap <leader>cmd :CMake build_and_debug<CR>
 
 nnoremap <F5> :Git<CR>
 nnoremap <F6> :Git commit<CR>
@@ -62,6 +65,40 @@ lua require('treesitter')
 lua require('_telescope')
 lua << EOF
 require('Comment').setup({padding = false})
+EOF
+lua << EOF
+local dap = require('dap')
+dap.adapters.lldb = {
+  type = 'executable',
+  command = '/usr/bin/lldb-vscode', -- adjust as needed, must be absolute path
+  name = 'lldb'
+}
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    -- CHANGE THIS to your path!
+    command = '/usr/bin/codelldb',
+    args = {"--port", "${port}"},
+
+    -- On windows you may have to uncomment this:
+    -- detached = false,
+  }
+}
+dap.configurations.cpp = {
+  {
+    name = "Launch",
+    type = "lldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = true,
+  },
+}
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
 EOF
 
 colorscheme monokai
@@ -105,7 +142,9 @@ nmap <leader>w <Plug>(easymotion-overwin-w)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Telescope
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <F3> :Telescope find_files <CR>
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
+nnoremap <leader>tt <cmd>Telescope <cr>
 nnoremap <leader>tg <cmd>Telescope live_grep<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
