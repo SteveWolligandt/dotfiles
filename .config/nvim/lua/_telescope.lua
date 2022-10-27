@@ -6,6 +6,19 @@ require('telescope').setup{
   },
   pickers = { },
   extensions = {
+    file_browser = {
+      theme = "ivy",
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = true,
+      mappings = {
+        ["i"] = {
+          -- your custom insert mode mappings
+        },
+        ["n"] = {
+          -- your custom normal mode mappings
+        },
+      },
+    },
     packer = {
       theme = "ivy",
       layout_config = {
@@ -33,3 +46,5 @@ require("telescope").load_extension("packer")
 require("telescope").load_extension("ui-select")
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('dap')
+require('telescope').load_extension('file_browser')
+require('telescope').load_extension('project')

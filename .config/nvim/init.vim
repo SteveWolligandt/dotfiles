@@ -91,7 +91,9 @@ dap.configurations.cpp = {
     type = "lldb",
     request = "launch",
     program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      return vim.fn.input('Path to executable: ',
+                          vim.fn.getcwd() .. '/',
+                          'file')
     end,
     cwd = '${workspaceFolder}',
     stopOnEntry = true,
@@ -100,6 +102,10 @@ dap.configurations.cpp = {
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 EOF
+
+" This disables deoplete when in telescope
+autocmd FileType TelescopePrompt call
+      \ deoplete#custom#buffer_option('auto_complete', v:false)
 
 colorscheme monokai
 syntax enable
@@ -147,6 +153,8 @@ nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tt <cmd>Telescope <cr>
 nnoremap <leader>tg <cmd>Telescope live_grep<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
+nnoremap <leader>tx <cmd>Telescope file_browser<cr>
+nnoremap <leader>tp <cmd>Telescope project<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -237,3 +245,4 @@ let g:Tex_IgnoredWarnings =
     \'There were undefined references'."\n".
     \'Citation %.%# undefined'."\n".
     \'Double space found.'."\n"
+
