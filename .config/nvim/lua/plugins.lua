@@ -9,6 +9,7 @@ return require('packer').startup(function()
   use 'zchee/libclang-python3'
   use 'sbdchd/neoformat'
   use 'w0rp/ale'
+  use 'lambdalisue/suda.vim'
   use {
     'numToStr/Comment.nvim',
     config = function()
