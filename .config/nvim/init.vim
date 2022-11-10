@@ -37,6 +37,7 @@ vnoremap <silent> # :<C-U>
 
 nnoremap gf :Neoformat <CR>
 vnoremap gf :Neoformat <CR>
+
 nmap <ScrollWheelUp> <C-Y>
 nmap <ScrollWheelDown> <C-E>
 nmap <F2> :nohlsearch <CR>
@@ -49,8 +50,9 @@ nmap <leader>cmst :CMake select_target<CR>
 nmap <leader>cmr :CMake build_and_run<CR>
 nmap <leader>cmd :CMake build_and_debug<CR>
 
-nnoremap <F5> :Git<CR>
-nnoremap <F6> :Git commit<CR>
+nnoremap <leader>gg :Git<CR>
+nnoremap <leader>gc :Git commit<CR>
+
 nnoremap <F7> :NERDTreeToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
 
@@ -148,7 +150,6 @@ nmap <leader>w <Plug>(easymotion-overwin-w)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Telescope
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F3> :Telescope find_files <CR>
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tt <cmd>Telescope <cr>
 nnoremap <leader>tg <cmd>Telescope live_grep<cr>
