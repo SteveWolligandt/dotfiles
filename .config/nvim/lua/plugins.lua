@@ -57,6 +57,9 @@ return require('packer').startup(function()
   use {'nvim-treesitter/nvim-treesitter',
        run = ':TSUpdate'}
   use 'SteveWolligandt/vim-monokai'
+  use 'patstockwell/vim-monokai-tasty'
+  use { "catppuccin/nvim", as = "catppuccin" }
+
 
 -- tmux
   use 'tmux-plugins/vim-tmux-focus-events'

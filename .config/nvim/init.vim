@@ -109,9 +109,16 @@ EOF
 autocmd FileType TelescopePrompt call
       \ deoplete#custom#buffer_option('auto_complete', v:false)
 
-colorscheme monokai
 syntax enable
-highlight Search guibg='Purple' guifg='NONE'
+"colorscheme catppuccin
+"colorscheme catppuccin-frappe
+"colorscheme catppuccin-macchiato
+"colorscheme catppuccin-mocha
+"colorscheme catppuccin-latte
+
+"colorscheme monokai
+colorscheme vim-monokai-tasty
+"highlight Search guibg='Purple' guifg='NONE'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline
