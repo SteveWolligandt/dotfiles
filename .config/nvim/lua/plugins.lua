@@ -3,7 +3,7 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
--- Language
+-- language
   use {'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
   use 'deoplete-plugins/deoplete-clang'
   use 'zchee/libclang-python3'
@@ -17,17 +17,19 @@ return require('packer').startup(function()
     end
   }
 
--- Airline
+-- airline
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
 
--- Views
+-- views
   use 'mbbill/undotree'
   use 'scrooloose/nerdtree'
 
+-- misc
   use 'majutsushi/tagbar'
   use 'easymotion/vim-easymotion'
   use 'tpope/vim-surround'
+  use 'nanozuki/tabby.nvim'
 
 -- git
   use 'tpope/vim-fugitive'
@@ -56,6 +58,8 @@ return require('packer').startup(function()
   use 'tikhomirov/vim-glsl'
   use {'nvim-treesitter/nvim-treesitter',
        run = ':TSUpdate'}
+
+-- colorschemes
   use 'SteveWolligandt/vim-monokai'
   use 'patstockwell/vim-monokai-tasty'
   use { "catppuccin/nvim", as = "catppuccin" }
@@ -67,24 +71,24 @@ return require('packer').startup(function()
   use 'christoomey/vim-tmux-navigator'
   use 'mhinz/neovim-remote'
 
--- CMake
+-- cmake
   use {'Shatur/neovim-cmake',
         requires = {'nvim-lua/plenary.nvim',
                     'mfussenegger/nvim-dap',
                     'mfussenegger/nvim-dap-python',}
       }
 
---Fortran
+-- fortran
   use 'rudrab/vimf90'
   use 'SirVer/ultisnips'
   -- use 'neoclide/coc.nvim'
 
---Markdown
+-- markdown
   use 'godlygeek/tabular'
   use 'plasticboy/vim-markdown'
   use 'iamcco/markdown-preview.vim'
   
--- Neorg
+-- neorg
   use {
     "folke/zen-mode.nvim",
     config = function()
@@ -139,6 +143,7 @@ return require('packer').startup(function()
       --"rsh7th/nvim-cmp"
     }
   }
--- Games
+
+-- games
   use 'alec-gibson/nvim-tetris'
 end)
