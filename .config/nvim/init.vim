@@ -162,11 +162,11 @@ syntax enable
 "colorscheme catppuccin
 "colorscheme catppuccin-frappe
 "colorscheme catppuccin-macchiato
-"colorscheme catppuccin-mocha
+colorscheme catppuccin-mocha
 "colorscheme catppuccin-latte
 
 "colorscheme monokai
-colorscheme vim-monokai-tasty
+"colorscheme vim-monokai-tasty
 "highlight Search guibg='Purple' guifg='NONE'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
