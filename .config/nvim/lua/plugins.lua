@@ -60,7 +60,6 @@ return require('packer').startup(function()
        run = ':TSUpdate'}
 
 -- colorschemes
-  use 'nvim-lualine/lualine.nvim'
   use 'SteveWolligandt/vim-monokai'
   use 'patstockwell/vim-monokai-tasty'
   use { "catppuccin/nvim", as = "catppuccin" }
