@@ -118,7 +118,6 @@ local theme = {
 require('tabby.tabline').set(function(line)
   return {
     {
-      { '  ', hl = theme.head },
       line.sep('', theme.head, theme.fill),
     },
     line.tabs().foreach(function(tab)
@@ -162,9 +161,10 @@ syntax enable
 "colorscheme catppuccin
 "colorscheme catppuccin-frappe
 "colorscheme catppuccin-macchiato
-colorscheme catppuccin-mocha
+"colorscheme catppuccin-mocha
 "colorscheme catppuccin-latte
 
+colorscheme gruvbox
 "colorscheme monokai
 "colorscheme vim-monokai-tasty
 "highlight Search guibg='Purple' guifg='NONE'
@@ -173,7 +173,7 @@ colorscheme catppuccin-mocha
 " airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts = 1
-let g:airline_theme='powerlineish'
+let g:airline_theme='gruvbox'
 
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

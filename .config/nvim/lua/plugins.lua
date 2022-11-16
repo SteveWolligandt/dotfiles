@@ -63,6 +63,7 @@ return require('packer').startup(function()
   use 'SteveWolligandt/vim-monokai'
   use 'patstockwell/vim-monokai-tasty'
   use { "catppuccin/nvim", as = "catppuccin" }
+  use 'morhetz/gruvbox'
 
 
 -- tmux
