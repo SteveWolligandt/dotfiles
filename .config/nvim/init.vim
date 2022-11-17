@@ -14,7 +14,6 @@ set shortmess=I
 set termguicolors
 set foldmethod=syntax
 set foldlevel=20
-set clipboard^=unnamed,unnamedplus
 
 "set shell=/bin/bash
 "set exrc
@@ -53,6 +52,8 @@ nmap <leader>cmd :CMake build_and_debug<CR>
 
 nnoremap <leader>gg :Git<CR>
 nnoremap <leader>gc :Git commit<CR>
+
+nnoremap <leader>af :ALEFix<CR>
 
 nnoremap <F7> :NERDTreeToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
