@@ -67,7 +67,6 @@ map <F12> :tabn<cr>
 lua require('plugins')
 lua require('treesitter')
 lua require('_telescope')
-lua require('_tabby')
 lua << EOF
 require('Comment').setup({padding = false})
 EOF
@@ -119,7 +118,9 @@ syntax enable
 "colorscheme catppuccin-mocha
 "colorscheme catppuccin-latte
 
-colorscheme gruvbox
+"colorscheme gruvbox
+"colorscheme material
+colorscheme sonokai
 "colorscheme monokai
 "colorscheme vim-monokai-tasty
 "highlight Search guibg='Purple' guifg='NONE'
@@ -128,9 +129,10 @@ colorscheme gruvbox
 " airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts = 1
-let g:airline_theme='gruvbox'
+"let g:airline_theme='gruvbox'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " deoplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

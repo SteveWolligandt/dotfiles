@@ -29,7 +29,6 @@ return require('packer').startup(function()
   use 'majutsushi/tagbar'
   use 'easymotion/vim-easymotion'
   use 'tpope/vim-surround'
-  use 'nanozuki/tabby.nvim'
 
 -- git
   use 'tpope/vim-fugitive'
@@ -64,6 +63,8 @@ return require('packer').startup(function()
   use 'patstockwell/vim-monokai-tasty'
   use { "catppuccin/nvim", as = "catppuccin" }
   use 'morhetz/gruvbox'
+  use 'marko-cerovac/material.nvim'
+  use 'sainnhe/sonokai'
 
 
 -- tmux
