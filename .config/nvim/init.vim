@@ -52,6 +52,9 @@ nmap <leader>cmd :CMake build_and_debug<CR>
 
 nnoremap <leader>gg :Git<CR>
 nnoremap <leader>gc :Git commit<CR>
+nnoremap <leader>gl :Git log<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gb :Git blame<CR>
 
 nnoremap <leader>af :ALEFix<CR>
 
