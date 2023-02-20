@@ -34,6 +34,27 @@ return require('packer').startup(function()
   use 'tpope/vim-fugitive'
   use 'airblade/vim-gitgutter'
 
+-- Debugging
+  --use {'sakhnik/nvim-gdb',
+  --     run=':!./install.sh',
+  --     branch='devel'}
+  use 'williamboman/mason.nvim'
+  use {'mfussenegger/nvim-dap',
+    requires = {
+      "Pocco81/DAPInstall.nvim",
+      "theHamsta/nvim-dap-virtual-text",
+      "rcarriga/nvim-dap-ui",
+      --"mfussenegger/nvim-dap-python",
+      "nvim-telescope/telescope-dap.nvim",
+      'jay-babu/mason-nvim-dap.nvim',
+      --{ "leoluz/nvim-dap-go", module = "dap-go" },
+      --{ "jbyuki/one-small-step-for-vimkind", module = "osv" },
+    },
+    config = function()
+      require("config.dap").setup()
+    end,
+  }
+
 -- telescope
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
@@ -42,14 +63,10 @@ return require('packer').startup(function()
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'nvim-telescope/telescope-project.nvim'
   use 'nvim-telescope/telescope-ui-select.nvim'
-  use 'nvim-telescope/telescope-dap.nvim'
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
   use 'nvim-telescope/telescope-packer.nvim'
-
--- Latex
-  use 'lervag/vimtex'
 
 -- Syntax
   use 'cespare/vim-toml'

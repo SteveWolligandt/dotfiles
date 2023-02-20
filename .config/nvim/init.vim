@@ -15,10 +15,6 @@ set termguicolors
 set foldmethod=syntax
 set foldlevel=20
 
-"set shell=/bin/bash
-"set exrc
-"set secure
- 
 filetype on
 au BufNewFile,BufRead *.tikz set filetype=tex
 
@@ -58,56 +54,13 @@ nnoremap <leader>gb :Git blame<CR>
 
 nnoremap <leader>af :ALEFix<CR>
 
-nnoremap <F7> :NERDTreeToggle<CR>
-nnoremap <F8> :TagbarToggle<CR>
-
-nmap <F9> :cnext <CR>
-nmap <F10> :cprev <CR>
-map <F11> :tabp<cr>
-map <F12> :tabn<cr>
-
+"nnoremap <F8> :TagbarToggle<CR>
 
 lua require('plugins')
 lua require('treesitter')
 lua require('_telescope')
 lua << EOF
 require('Comment').setup({padding = false})
-EOF
-lua << EOF
-local dap = require('dap')
-dap.adapters.lldb = {
-  type = 'executable',
-  command = '/usr/bin/lldb-vscode', -- adjust as needed, must be absolute path
-  name = 'lldb'
-}
-dap.adapters.codelldb = {
-  type = 'server',
-  port = "${port}",
-  executable = {
-    -- CHANGE THIS to your path!
-    command = '/usr/bin/codelldb',
-    args = {"--port", "${port}"},
-
-    -- On windows you may have to uncomment this:
-    -- detached = false,
-  }
-}
-dap.configurations.cpp = {
-  {
-    name = "Launch",
-    type = "lldb",
-    request = "launch",
-    program = function()
-      return vim.fn.input('Path to executable: ',
-                          vim.fn.getcwd() .. '/',
-                          'file')
-    end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = true,
-  },
-}
-dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp
 EOF
 
 " This disables deoplete when in telescope
@@ -168,40 +121,12 @@ nmap <leader>w <Plug>(easymotion-overwin-w)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tt <cmd>Telescope <cr>
+nnoremap <leader>tc <cmd>Telescope commands<cr>
 nnoremap <leader>tg <cmd>Telescope live_grep<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>tx <cmd>Telescope file_browser<cr>
 nnoremap <leader>tp <cmd>Telescope project<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERD Commenter
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 0
-
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 0
-
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 0
-
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-
-" Enable NERDCommenterToggle to check all selected lines is commented or not
-let g:NERDToggleCheckAllLines = 1
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ALE

@@ -1,6 +1,6 @@
 local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'norg', 'haskell', 'cpp', 'c', 'javascript', 'markdown', 'python' },
+  ensure_installed = { 'cpp', 'c', 'python', 'python', 'lua', 'java' },
   highlight = { enable = true, }
 }
