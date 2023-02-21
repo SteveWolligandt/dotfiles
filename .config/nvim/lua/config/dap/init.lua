@@ -3,7 +3,7 @@ local M = {}
 local function configure()
   require("mason").setup()
   require("mason-nvim-dap").setup({
-    ensure_installed = {'codelldb'}
+    ensure_installed = {'cpptools', 'codelldb'}
   })
 
   local dap_breakpoint = {
@@ -51,7 +51,7 @@ local function configure_exts()
 end
 
 local function configure_debuggers()
-  require("config.dap.c++").setup()
+  require("config.dap.adapters").setup()
 end
 
 function M.setup()

@@ -34,6 +34,19 @@ return require('packer').startup(function()
   use 'tpope/vim-fugitive'
   use 'airblade/vim-gitgutter'
 
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+
 -- Debugging
   --use {'sakhnik/nvim-gdb',
   --     run=':!./install.sh',
@@ -41,15 +54,12 @@ return require('packer').startup(function()
   use 'williamboman/mason.nvim'
   use {'mfussenegger/nvim-dap',
     requires = {
-      --"Pocco81/DAPInstall.nvim",
-      --"theHamsta/nvim-dap-virtual-text",
+      "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
       "ldelossa/nvim-dap-projects",
       --"mfussenegger/nvim-dap-python",
       "nvim-telescope/telescope-dap.nvim",
       'jay-babu/mason-nvim-dap.nvim',
-      --{ "leoluz/nvim-dap-go", module = "dap-go" },
-      --{ "jbyuki/one-small-step-for-vimkind", module = "osv" },
     },
     config = function()
       require("config.dap").setup()
@@ -59,19 +69,23 @@ return require('packer').startup(function()
 -- telescope
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    requires = {'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep'},
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'BurntSushi/ripgrep',
+      'nvim-telescope/telescope-file-browser.nvim',
+      'nvim-telescope/telescope-project.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
+      'nvim-telescope/telescope-dap.nvim',
+      'nvim-telescope/telescope-packer.nvim',
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+      }
+    },
     config = function()
       require("config.telescope").setup()
     end,
   }
-  use 'nvim-telescope/telescope-file-browser.nvim'
-  use 'nvim-telescope/telescope-project.nvim'
-  use 'nvim-telescope/telescope-ui-select.nvim'
-  use 'nvim-telescope/telescope-dap.nvim'
-  use {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-  use 'nvim-telescope/telescope-packer.nvim'
 
 -- Latex
   use 'lervag/vimtex'
