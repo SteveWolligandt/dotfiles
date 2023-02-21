@@ -51,7 +51,7 @@ local function configure_exts()
 end
 
 local function configure_debuggers()
-  --require("config.dap.c++").setup()
+  require("config.dap.c++").setup()
 end
 
 function M.setup()

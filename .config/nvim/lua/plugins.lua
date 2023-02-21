@@ -13,7 +13,7 @@ return require('packer').startup(function()
   use {
     'numToStr/Comment.nvim',
     config = function()
-      require('Comment').setup()
+      require('Comment').setup({padding = false})
     end
   }
 
@@ -41,9 +41,10 @@ return require('packer').startup(function()
   use 'williamboman/mason.nvim'
   use {'mfussenegger/nvim-dap',
     requires = {
-      "Pocco81/DAPInstall.nvim",
-      "theHamsta/nvim-dap-virtual-text",
+      --"Pocco81/DAPInstall.nvim",
+      --"theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
+      "ldelossa/nvim-dap-projects",
       --"mfussenegger/nvim-dap-python",
       "nvim-telescope/telescope-dap.nvim",
       'jay-babu/mason-nvim-dap.nvim',
@@ -58,22 +59,32 @@ return require('packer').startup(function()
 -- telescope
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    requires = {'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep'}
+    requires = {'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep'},
+    config = function()
+      require("config.telescope").setup()
+    end,
   }
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'nvim-telescope/telescope-project.nvim'
   use 'nvim-telescope/telescope-ui-select.nvim'
+  use 'nvim-telescope/telescope-dap.nvim'
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
   use 'nvim-telescope/telescope-packer.nvim'
+
+-- Latex
+  use 'lervag/vimtex'
 
 -- Syntax
   use 'cespare/vim-toml'
   use 'khaveesh/vim-fish-syntax'
   use 'tikhomirov/vim-glsl'
   use {'nvim-treesitter/nvim-treesitter',
-       run = ':TSUpdate'}
+       run = ':TSUpdate',
+       config = function()
+        require("config.treesitter").setup()
+       end}
 
 -- colorschemes
   use 'SteveWolligandt/vim-monokai'
@@ -83,12 +94,11 @@ return require('packer').startup(function()
   use 'marko-cerovac/material.nvim'
   use 'sainnhe/sonokai'
 
-
--- tmux
-  use 'tmux-plugins/vim-tmux-focus-events'
-  use 'roxma/vim-tmux-clipboard'
-  use 'christoomey/vim-tmux-navigator'
-  use 'mhinz/neovim-remote'
+---- tmux
+--  use 'tmux-plugins/vim-tmux-focus-events'
+--  use 'roxma/vim-tmux-clipboard'
+--  use 'christoomey/vim-tmux-navigator'
+--  use 'mhinz/neovim-remote'
 
 -- cmake
   use {'Shatur/neovim-cmake',
@@ -97,11 +107,11 @@ return require('packer').startup(function()
                     'mfussenegger/nvim-dap-python',}
       }
 
--- fortran
-  use 'rudrab/vimf90'
-  use 'SirVer/ultisnips'
-  -- use 'neoclide/coc.nvim'
-
+---- fortran
+--  use 'rudrab/vimf90'
+--  use 'SirVer/ultisnips'
+--  -- use 'neoclide/coc.nvim'
+--
 -- markdown
   use 'godlygeek/tabular'
   use 'plasticboy/vim-markdown'
@@ -122,44 +132,15 @@ return require('packer').startup(function()
   use {
     "nvim-neorg/neorg",
     config = function()
-      require('neorg').setup {
-        load = {
-          ["core.defaults"] = {},
-          ["core.autocommands"] = {},
-          ["core.export"] = {config={}},
-          ["core.export.markdown"] = {config={}},
-          ["core.integrations.treesitter"] = {config={}},
-           --["core.norg.completion"] = {config = {engine="nvim-cmp"}},
-          ["core.norg.dirman"] = {
-            config = {
-              workspaces = {
-                notes = "~\\neorg\\notes",
-                gtd = "~\\neorg\\gtd",
-              }
-            }
-          },
-          ["core.gtd.base"] = {
-            config = { workspace = "gtd" }
-          },
-          ["core.norg.qol.todo_items"] = {config = {}},
-          ["core.norg.concealer"] = {config={}},
-          ["core.keybinds"] = {
-            config = {
-              hook = function(keybinds)
-                -- Binds the `gtd` key in `norg` mode to execute `:echo 'Hello'`
-                keybinds.map("norg", "n", "<C-Space>", "core.norg.qol.todo_items.todo.task_done")
-              end,
-            }
-          },
-          ["core.presenter"] = {
-            config = { zen_mode = "zen-mode" }
-          }
-        }
-      }
+      require("config.neorg").setup()
     end,
     requires = {
-      "nvim-lua/plenary.nvim",
-      --"rsh7th/nvim-cmp"
+      'nvim-lua/plenary.nvim',
+      {'hrsh7th/nvim-cmp', 
+        config = function()
+          require("config.nvim-cmp").setup()
+        end,
+      }
     }
   }
 

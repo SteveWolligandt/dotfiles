@@ -57,11 +57,6 @@ nnoremap <leader>af :ALEFix<CR>
 "nnoremap <F8> :TagbarToggle<CR>
 
 lua require('plugins')
-lua require('treesitter')
-lua require('_telescope')
-lua << EOF
-require('Comment').setup({padding = false})
-EOF
 
 " This disables deoplete when in telescope
 autocmd FileType TelescopePrompt call
