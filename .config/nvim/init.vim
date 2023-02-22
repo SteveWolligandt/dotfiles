@@ -6,6 +6,8 @@ set laststatus=2
 set mouse=a
 set expandtab
 set shiftwidth=2
+set tabstop=2
+set expandtab
 set softtabstop=2
 set cursorline
 set number
@@ -14,6 +16,7 @@ set shortmess=I
 set termguicolors
 set foldmethod=syntax
 set foldlevel=20
+set exrc
 
 filetype on
 au BufNewFile,BufRead *.tikz set filetype=tex

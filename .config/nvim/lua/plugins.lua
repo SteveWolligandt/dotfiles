@@ -57,7 +57,7 @@ return require('packer').startup(function()
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
       "ldelossa/nvim-dap-projects",
-      --"mfussenegger/nvim-dap-python",
+      "mfussenegger/nvim-dap-python",
       "nvim-telescope/telescope-dap.nvim",
       'jay-babu/mason-nvim-dap.nvim',
     },
@@ -108,11 +108,12 @@ return require('packer').startup(function()
   use 'marko-cerovac/material.nvim'
   use 'sainnhe/sonokai'
 
----- tmux
---  use 'tmux-plugins/vim-tmux-focus-events'
---  use 'roxma/vim-tmux-clipboard'
---  use 'christoomey/vim-tmux-navigator'
---  use 'mhinz/neovim-remote'
+
+-- tmux
+  use 'tmux-plugins/vim-tmux-focus-events'
+  use 'roxma/vim-tmux-clipboard'
+  use 'christoomey/vim-tmux-navigator'
+  use 'mhinz/neovim-remote'
 
 -- cmake
   use {'Shatur/neovim-cmake',
