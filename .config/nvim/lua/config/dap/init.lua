@@ -1,5 +1,5 @@
 local M = {}
-
+--------------------------------------------------------------------------------
 local function configure()
   require("mason").setup()
   require("mason-nvim-dap").setup({
@@ -8,7 +8,7 @@ local function configure()
 
   local dap_breakpoint = {
     error = {
-      text = "",
+      text = "⬤",
       texthl = "LspDiagnosticsSignError",
       linehl = "",
       numhl = "",
@@ -31,7 +31,7 @@ local function configure()
   vim.fn.sign_define("DapStopped", dap_breakpoint.stopped)
   vim.fn.sign_define("DapBreakpointRejected", dap_breakpoint.rejected)
 end
-
+--------------------------------------------------------------------------------
 local function configure_exts()
   require("nvim-dap-virtual-text").setup {
     commented = true,
@@ -49,18 +49,16 @@ local function configure_exts()
     dapui.close()
   end
 end
-
-local function configure_debuggers()
+--------------------------------------------------------------------------------
+local function configure_adapters()
   require("config.dap.adapters").setup()
 end
-
+--------------------------------------------------------------------------------
 function M.setup()
   configure() -- Configuration
   configure_exts() -- Extensions
-  configure_debuggers() -- Debugger
+  configure_adapters() -- Debugger
   require("config.dap.keymaps").setup() -- Keymaps
 end
-
-configure_debuggers()
-
+--------------------------------------------------------------------------------
 return M

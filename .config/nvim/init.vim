@@ -125,6 +125,7 @@ nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>tx <cmd>Telescope file_browser<cr>
 nnoremap <leader>tp <cmd>Telescope project<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
+nnoremap <leader>td <cmd>Telescope dap configurations<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ALE
