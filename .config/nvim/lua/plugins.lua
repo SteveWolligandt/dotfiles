@@ -130,11 +130,6 @@ return require('packer').startup(function()
     end,
     requires = {
       'nvim-lua/plenary.nvim',
-      {'hrsh7th/nvim-cmp', 
-        config = function()
-          require("config.nvim-cmp").setup()
-        end,
-      }
     }
   }
 
