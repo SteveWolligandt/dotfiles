@@ -1,11 +1,6 @@
 local M = {}
 --------------------------------------------------------------------------------
 local function configure()
-  local dap_install = require("dap-install")
-
-  dap_install.setup({
-    installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
-  })
   require("mason").setup()
   require("mason-nvim-dap").setup({
     ensure_installed = {'cpptools', 'codelldb'}
