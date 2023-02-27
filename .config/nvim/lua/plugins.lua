@@ -48,9 +48,6 @@ return require('packer').startup(function()
   }
 
 -- Debugging
-  --use {'sakhnik/nvim-gdb',
-  --     run=':!./install.sh',
-  --     branch='devel'}
   use 'williamboman/mason.nvim'
   use {'mfussenegger/nvim-dap',
     requires = {
@@ -117,33 +114,15 @@ return require('packer').startup(function()
 
 -- cmake
   use {'Shatur/neovim-cmake',
-        requires = {'nvim-lua/plenary.nvim',
-                    'mfussenegger/nvim-dap',
-                    'mfussenegger/nvim-dap-python',}
+        requires = {'nvim-lua/plenary.nvim'}
       }
 
----- fortran
---  use 'rudrab/vimf90'
---  use 'SirVer/ultisnips'
---  -- use 'neoclide/coc.nvim'
---
 -- markdown
   use 'godlygeek/tabular'
   use 'plasticboy/vim-markdown'
   use 'iamcco/markdown-preview.vim'
   
 -- neorg
-  use {
-    "folke/zen-mode.nvim",
-    config = function()
-      require("zen-mode").setup {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-      }
-    end
-  }
-
   use {
     "nvim-neorg/neorg",
     config = function()

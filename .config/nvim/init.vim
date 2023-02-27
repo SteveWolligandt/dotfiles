@@ -17,7 +17,10 @@ set termguicolors
 set foldmethod=syntax
 set foldlevel=20
 set exrc
-
+set clipboard^=unnamed,unnamedplus
+set fileformats=unix,dos
+set fileformat=unix
+ 
 filetype on
 au BufNewFile,BufRead *.tikz set filetype=tex
 
@@ -56,8 +59,6 @@ nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gb :Git blame<CR>
 
 nnoremap <leader>af :ALEFix<CR>
-
-"nnoremap <F8> :TagbarToggle<CR>
 
 lua require('plugins')
 
@@ -187,3 +188,16 @@ let g:Tex_IgnoredWarnings =
     \'Citation %.%# undefined'."\n".
     \'Double space found.'."\n"
 
+" This is new style
+call deoplete#custom#var('omni', 'input_patterns', {
+      \ 'tex': g:vimtex#re#deoplete
+      \})
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neoformat
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:neoformat_tex_latexindent = {
+  \ 'exe': 'latexindent',
+  \ 'args': ['-l'],
+  \ 'stdin': 1
+  \ }
