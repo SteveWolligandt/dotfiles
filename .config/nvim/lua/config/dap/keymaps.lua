@@ -6,6 +6,15 @@ local whichkey = require "which-key"
 --   vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
 -- end
 
+-- Functional wrapper for mapping custom keybindings
+function map(mode, lhs, rhs, opts)
+    local options = { noremap = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
 function M.setup()
   local keymap = {
     d = {
@@ -41,6 +50,12 @@ function M.setup()
     noremap = true,
     nowait = false,
   })
+  
+  map("n", "<F5>", ":lua require('dap').continue()<CR>", { silent = true })
+  map("n", "<F8>", ":lua require('dap').toggle_breakpoint()<CR>", { silent = true })
+  map("n", "<F10>", ":lua require('dap').step_over()<CR>", { silent = true })
+  map("n", "<F11>", ":lua require('dap').step_into()<CR>", { silent = true })
+  map("n", "<F12>", ":lua require('dap').step_out()<CR>", { silent = true })
 
   local keymap_v = {
     name = "Debug",

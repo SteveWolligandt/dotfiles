@@ -4,9 +4,10 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
 -- language
-  use {'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
-  use 'deoplete-plugins/deoplete-clang'
-  use 'zchee/libclang-python3'
+  --use {'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins', requires={
+  --  'deoplete-plugins/deoplete-clang',
+  --  'zchee/libclang-python3'
+  --} }
   use 'sbdchd/neoformat'
   use 'w0rp/ale'
   use 'lambdalisue/suda.vim'
@@ -48,9 +49,9 @@ return require('packer').startup(function()
   }
 
 -- Debugging
-  use 'williamboman/mason.nvim'
   use {'mfussenegger/nvim-dap',
     requires = {
+      'williamboman/mason.nvim',
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
       "ldelossa/nvim-dap-projects",
