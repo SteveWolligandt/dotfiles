@@ -105,7 +105,6 @@ return require('packer').startup(function()
   use 'marko-cerovac/material.nvim'
   use 'sainnhe/sonokai'
 
-
 -- tmux
   use 'tmux-plugins/vim-tmux-focus-events'
   use 'roxma/vim-tmux-clipboard'
