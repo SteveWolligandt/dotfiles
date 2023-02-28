@@ -1,36 +1,69 @@
 local M = {}
-
-function M.pick_one(items, prompt, cb)
-  local co
-  if not cb then
-    co = coroutine.running()
-    if co then
-      cb = function(item)
-        coroutine.resume(co, item)
-      end
+--------------------------------------------------------------------------------
+function M.init()
+  M.tmpFile = os.tmpname()
+  os.execute('whoami > '.. M.tmpFile)
+  local whoamiFile = io.open(M.tmpFile, 'r')
+  M.user = whoamiFile:read()
+  whoamiFile:close()
+  M.psCommand = 'ps -u '..M.user..' -U '..M.user..' u > '.. M.tmpFile
+  vim.inspect(M)
+end
+--------------------------------------------------------------------------------
+function M.selectAndWait(items, prompt, format)
+  local co = coroutine.running()
+  if co then
+    cb = function(item)
+      coroutine.resume(co, item)
     end
   end
   cb = vim.schedule_wrap(cb)
-  if vim.ui then
-    vim.ui.select(items, {
-      prompt = prompt,
-      format_item = function(item) return item end
-    }, cb)
-  else
-    local result = M.pick_one_sync(items, prompt)
-    cb(result)
-  end
+  vim.ui.select(items, {
+    prompt = prompt,
+    format_item = format
+  }, cb)
   if co then
     return coroutine.yield()
   end
 end
+--------------------------------------------------------------------------------------------
+function M.processesWithName(name) 
+  os.execute('ps | grep ' .. name .. ' > M.tmpFile')
+  -- read the tmp file line by line
+  local processes = {}
+  for line in io.lines(M.tmpFile) do
+    table.insert(processes, line)
+  end
+  return processes
+end
+--------------------------------------------------------------------
+function M.processesOfUser() 
+  os.execute(M.psCommand)
+  -- read the tmp file line by line
+  local processes = {}
+  local first = true -- for omitting table header line
+  for processString in io.lines(M.tmpFile) do
+    if first then
+      first = false
+    else 
+      local process = {}
+      for token in string.gmatch(processString, "[^%s]+") do
+        table.insert(process, token)
+      end
+      table.insert(processes, process)
+    end
+  end
+  return processes
+end
+--------------------------------------------------------------------------------
 function M.setup()
   local dap = require('dap')
 
   dap.adapters.cppdbg = {
     name = "cpptools",
-    type = "executable",
+    type = "server",
     port = "4711",
+    --args = "--server=4711",
     command = vim.fn.stdpath("data") .. '/mason/bin/OpenDebugAD7',
   }
 
@@ -46,36 +79,48 @@ function M.setup()
 
   dap.configurations.cpp = {
     {
-      name = 'Attach PID',
+      name = 'Attach to process',
       type = 'cppdbg',
       request = 'attach',
-      program = '/u/stewol9h/dev1/star/lib/linux-x86_64-2.17/gnu11.2/lib/StarPhysicsDataSource_gtest',
       processId = function()
-        -- execute linux ps and get PIDs and process names. write the output to a tmp file
-        local n = os.tmpname()
-        os.execute('ps -eo pid,comm > '.. n)
-
-        -- read the tmp file line by line
-        local processes = {}
-        local first = true -- for omitting table header line
-        for line in io.lines(n) do
-          if first then
-            first = false
-          else
-            table.insert(processes, line)
-          end
-        end
-
-        local pid = pick_one(processes, "Select process")
-        local line = {}
-        for token in string.gmatch(item, "[^%s]+") do
-          table.insert(line, token)
-        end
-        pid = line[1]
-        print(pid)
+        local process = M.selectAndWait(M.processesOfUser(), "Select process", function(process) return process[11] .. ' ('..process[2]..')'end)
+        local pid = process[2]
+        local path = process[11]
+        dap.configurations.cpp[1].program = path
+        print(path)
         return pid
       end,
     }
+    --{
+    --  name = 'Attach to StarCCM+',
+    --  type = 'cppdbg',
+    --  request = 'attach',
+    --  processId = function()
+    --    -- execute linux ps and get PIDs and process names. write the output to a tmp file
+    --    local ps = M.processesWithName('starccm+')
+    --
+    --    if (length(ps) == 0) then
+    --      return ''
+    --    elseif (length(ps) == 1) then
+    --      local pid = ps[1]
+    --      local line = {}
+    --      for token in string.gmatch(item, "[^%s]+") do
+    --        table.insert(line, token)
+    --      end
+    --      pid = line[1]
+    --    else
+    --      local pid = M.selectAndWait(processes, "Select process")
+    --      local line = {}
+    --      for token in string.gmatch(item, "[^%s]+") do
+    --        table.insert(line, token)
+    --      end
+    --      pid = line[1]
+    --    end
+    --    return pid
+    --  end,
+    --},
   }
+  dap.configurations.h = dap.configurations.cpp
 end
+M.init()
 return M

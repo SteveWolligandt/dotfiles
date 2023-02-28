@@ -36,10 +36,6 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gVzv:call setreg('"', old_reg, old_regtype)<CR>
 
-
-nnoremap gf :Neoformat <CR>
-vnoremap gf :Neoformat <CR>
-
 nmap <ScrollWheelUp> <C-Y>
 nmap <ScrollWheelDown> <C-E>
 nmap <F2> :nohlsearch <CR>
@@ -153,14 +149,16 @@ let g:Tex_IgnoredWarnings =
     \'Citation %.%# undefined'."\n".
     \'Double space found.'."\n"
 
-" This is new style
-call deoplete#custom#var('omni', 'input_patterns', {
-      \ 'tex': g:vimtex#re#deoplete
-      \})
+"" This is new style
+"call deoplete#custom#var('omni', 'input_patterns', {
+"      \ 'tex': g:vimtex#re#deoplete
+"      \})
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neoformat
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap gf :Neoformat <CR>
+vnoremap gf :Neoformat <CR>
 let g:neoformat_tex_latexindent = {
   \ 'exe': 'latexindent',
   \ 'args': ['-l'],

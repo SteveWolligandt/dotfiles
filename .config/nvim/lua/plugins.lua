@@ -8,8 +8,8 @@ return require('packer').startup(function()
   --  'deoplete-plugins/deoplete-clang',
   --  'zchee/libclang-python3'
   --} }
+  --use 'w0rp/ale'
   use 'sbdchd/neoformat'
-  use 'w0rp/ale'
   use 'lambdalisue/suda.vim'
   use {
     'numToStr/Comment.nvim',
@@ -72,7 +72,10 @@ return require('packer').startup(function()
       'BurntSushi/ripgrep',
       'nvim-telescope/telescope-file-browser.nvim',
       'nvim-telescope/telescope-project.nvim',
-      'nvim-telescope/telescope-ui-select.nvim',
+      {'stevearc/dressing.nvim', 
+        config = function()
+          require("config.dressing").setup()
+        end},
       'nvim-telescope/telescope-dap.nvim',
       'nvim-telescope/telescope-packer.nvim',
       {
@@ -123,15 +126,15 @@ return require('packer').startup(function()
   use 'iamcco/markdown-preview.vim'
   
 -- neorg
-  use {
-    "nvim-neorg/neorg",
-    config = function()
-      require("config.neorg").setup()
-    end,
-    requires = {
-      'nvim-lua/plenary.nvim',
-    }
-  }
+  --use {
+  --  "nvim-neorg/neorg",
+  --  config = function()
+  --    require("config.neorg").setup()
+  --  end,
+  --  requires = {
+  --    'nvim-lua/plenary.nvim',
+  --  }
+  --}
 
 -- games
   use 'alec-gibson/nvim-tetris'
