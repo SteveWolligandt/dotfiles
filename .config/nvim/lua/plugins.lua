@@ -3,36 +3,54 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
--- language
-  --use {'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins', requires={
-  --  'deoplete-plugins/deoplete-clang',
-  --  'zchee/libclang-python3'
-  --} }
-  --use 'w0rp/ale'
-  use 'sbdchd/neoformat'
-  use 'lambdalisue/suda.vim'
+  use {
+    'sbdchd/neoformat',
+    config = function()
+      require('config.neoformat').setup()
+    end,
+  }
+
   use {
     'numToStr/Comment.nvim',
     config = function()
-      require('Comment').setup({padding = false})
+      require('Comment').setup({})
     end
   }
 
--- airline
-  use 'vim-airline/vim-airline'
-  use 'vim-airline/vim-airline-themes'
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('lualine').setup()
+    end
+  }
+  use {
+    'alvarosevilla95/luatab.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('luatab').setup{} 
+    end
+  }
 
 -- views
   use 'mbbill/undotree'
-  use 'scrooloose/nerdtree'
 
 -- misc
   use 'majutsushi/tagbar'
-  use 'easymotion/vim-easymotion'
-  use 'tpope/vim-surround'
+  use {
+    'easymotion/vim-easymotion',
+    config = function()
+      require('config.easymotion').setup()
+    end,
+  }
 
 -- git
-  use 'tpope/vim-fugitive'
+  use {
+    'tpope/vim-fugitive',
+    config = function()
+      require('config.fugitive').setup()
+    end
+  }
   use 'airblade/vim-gitgutter'
 
   use {
@@ -40,7 +58,15 @@ return require('packer').startup(function()
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
-      require("which-key").setup {
+      require("which-key").setup{}
+    end
+  }
+
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {
         -- your configuration comes here
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
@@ -49,12 +75,11 @@ return require('packer').startup(function()
   }
 
 -- Debugging
+  use 'williamboman/mason.nvim'
   use {'mfussenegger/nvim-dap',
     requires = {
-      'williamboman/mason.nvim',
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
-      "ldelossa/nvim-dap-projects",
       "mfussenegger/nvim-dap-python",
       "nvim-telescope/telescope-dap.nvim",
       'jay-babu/mason-nvim-dap.nvim',
@@ -81,20 +106,20 @@ return require('packer').startup(function()
       {
         'nvim-telescope/telescope-fzf-native.nvim',
         run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
-      }
+      },
+      {
+        'EthanJWright/vs-tasks.nvim',
+        requires = {
+          'nvim-lua/popup.nvim',
+        }
+      },
     },
     config = function()
       require("config.telescope").setup()
     end,
   }
 
--- Latex
-  use 'lervag/vimtex'
-
 -- Syntax
-  use 'cespare/vim-toml'
-  use 'khaveesh/vim-fish-syntax'
-  use 'tikhomirov/vim-glsl'
   use {'nvim-treesitter/nvim-treesitter',
        run = ':TSUpdate',
        config = function()
@@ -102,12 +127,70 @@ return require('packer').startup(function()
        end}
 
 -- colorschemes
-  use 'SteveWolligandt/vim-monokai'
-  use 'patstockwell/vim-monokai-tasty'
-  use { "catppuccin/nvim", as = "catppuccin" }
-  use 'morhetz/gruvbox'
-  use 'marko-cerovac/material.nvim'
   use 'sainnhe/sonokai'
+  -- add more if you want
+
+  use {
+   'neovim/nvim-lspconfig',
+    config = function()
+      require("config.lsp").setup()
+    end,
+    requires = {
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
+      'mfussenegger/nvim-jdtls',
+      'p00f/clangd_extensions.nvim',
+      'L3MON4D3/LuaSnip',
+    },
+  }
+
+  use {
+    "startup-nvim/startup.nvim",
+    config = function()
+      require('startup').setup({theme = "startify"})
+    end
+  }
+
+
+  use {
+    'VonHeikemen/fine-cmdline.nvim',
+    requires = {
+      {'MunifTanjim/nui.nvim'}
+    },
+    config = function()
+      vim.api.nvim_set_keymap('n', ':', '<cmd>FineCmdline<CR>', {noremap = true})
+    end,
+  }
+
+  use {
+    "nvim-neorg/neorg",
+    config = function()
+      require("config.neorg").setup()
+    end,
+    requires = {
+      'nvim-lua/plenary.nvim',
+      {'hrsh7th/nvim-cmp', 
+        config = function()
+          require("config.nvim-cmp").setup()
+        end,
+      }
+    }
+  }
+
+-- markdown
+  use 'godlygeek/tabular'
+  use 'plasticboy/vim-markdown'
+  use 'iamcco/markdown-preview.vim'
+
+-- cmake
+  use {
+    'Shatur/neovim-cmake',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'mfussenegger/nvim-dap',
+      'mfussenegger/nvim-dap-python',
+    }
+  }
 
 -- tmux
   use 'tmux-plugins/vim-tmux-focus-events'
@@ -115,26 +198,8 @@ return require('packer').startup(function()
   use 'christoomey/vim-tmux-navigator'
   use 'mhinz/neovim-remote'
 
--- cmake
-  use {'Shatur/neovim-cmake',
-        requires = {'nvim-lua/plenary.nvim'}
-      }
-
--- markdown
-  use 'godlygeek/tabular'
-  use 'plasticboy/vim-markdown'
-  use 'iamcco/markdown-preview.vim'
-  
--- neorg
-  --use {
-  --  "nvim-neorg/neorg",
-  --  config = function()
-  --    require("config.neorg").setup()
-  --  end,
-  --  requires = {
-  --    'nvim-lua/plenary.nvim',
-  --  }
-  --}
+-- Latex
+  use 'lervag/vimtex'
 
 -- games
   use 'alec-gibson/nvim-tetris'

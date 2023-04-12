@@ -5,7 +5,7 @@ local whichkey = require "which-key"
 -- local function keymap(lhs, rhs, desc)
 --   vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
 -- end
-
+--
 -- Functional wrapper for mapping custom keybindings
 function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
@@ -13,6 +13,9 @@ function map(mode, lhs, rhs, opts)
         options = vim.tbl_extend("force", options, opts)
     end
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+function nmap(lhs, rhs, opts)
+  map('n', lhs, rhs, opts)
 end
 
 function M.setup()
@@ -50,12 +53,6 @@ function M.setup()
     noremap = true,
     nowait = false,
   })
-  
-  map("n", "<F5>", ":lua require('dap').continue()<CR>", { silent = true })
-  map("n", "<F8>", ":lua require('dap').toggle_breakpoint()<CR>", { silent = true })
-  map("n", "<F10>", ":lua require('dap').step_over()<CR>", { silent = true })
-  map("n", "<F11>", ":lua require('dap').step_into()<CR>", { silent = true })
-  map("n", "<F12>", ":lua require('dap').step_out()<CR>", { silent = true })
 
   local keymap_v = {
     name = "Debug",
@@ -69,6 +66,48 @@ function M.setup()
     noremap = true,
     nowait = false,
   })
+
+  local lua                = ":lua "
+  local cr                = "<CR>"
+  local dap                = "require('dap')"
+  local config_dap         = "require('config.dap')"
+  local exec_dir_forward   = config_dap..".execute('-exec set exec-direction forward');"
+  local exec_dir_reverse   = config_dap..".execute('-exec set exec-direction reverse');"
+  local continue           = dap..".continue();"
+  local step_over          = dap..".step_over();"
+  local step_into          = dap..".step_into();"
+  local step_out           = dap..".step_out();"
+  local toggle_breakpoints = dap..".toggle_breakpoint();"
+  nmap("<F5>",
+      lua..exec_dir_reverse..continue..cr,
+      { silent = true })
+  nmap("<F6>",
+      lua..exec_dir_forward..continue..cr,
+      { silent = true })
+  nmap("<F8>",
+      lua
+      ..toggle_breakpoints
+      ..config_dap..".store_breakpoints(false)"
+      ..cr,
+      { silent = true })
+  nmap("<F9>",
+      lua..exec_dir_reverse..step_over..cr,
+      { silent = true })
+  nmap("<F10>",
+      lua..exec_dir_forward..step_over..cr,
+      { silent = true })
+  nmap("<F11>",
+      lua..exec_dir_forward..step_into..cr,
+      { silent = true })
+  nmap("<C-F11>",
+      lua..exec_dir_reverse..step_into..cr,
+      { silent = true })
+  nmap("<F12>",
+      lua..exec_dir_forward..step_out..cr,
+      { silent = true })
+  nmap("<C-F12>",
+      lua..exec_dir_reverse..step_out..cr,
+      { silent = true })
 end
 
 return M

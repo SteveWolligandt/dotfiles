@@ -10,6 +10,25 @@ function M.init()
   vim.inspect(M)
 end
 --------------------------------------------------------------------------------
+function M.inputAndWait(prompt)
+  local co = coroutine.running()
+  if co then
+    cb = function(item)
+      coroutine.resume(co, item)
+    end
+  end
+  cb = vim.schedule_wrap(cb)
+
+  vim.ui.input({
+     prompt = "Enter program: ",
+     default = '',
+     completion = "file",
+  }, cb)
+  if co then
+    return coroutine.yield()
+  end
+end
+--------------------------------------------------------------------------------
 function M.selectAndWait(items, prompt, format)
   local co = coroutine.running()
   if co then
@@ -26,7 +45,7 @@ function M.selectAndWait(items, prompt, format)
     return coroutine.yield()
   end
 end
---------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 function M.processesWithName(name) 
   os.execute('ps | grep ' .. name .. ' > M.tmpFile')
   -- read the tmp file line by line
@@ -36,7 +55,7 @@ function M.processesWithName(name)
   end
   return processes
 end
---------------------------------------------------------------------
+--------------------------------------------------------------------------------
 function M.processesOfUser() 
   os.execute(M.psCommand)
   -- read the tmp file line by line
@@ -47,7 +66,7 @@ function M.processesOfUser()
       first = false
     else 
       local process = {}
-      for token in string.gmatch(processString, "[^%s]+") do
+      for token in string.gmatch(processString, '[^%s]+') do
         table.insert(process, token)
       end
       table.insert(processes, process)
@@ -58,68 +77,84 @@ end
 --------------------------------------------------------------------------------
 function M.setup()
   local dap = require('dap')
-
   dap.adapters.cppdbg = {
-    name = "cpptools",
-    type = "server",
-    port = "4711",
-    --args = "--server=4711",
-    command = vim.fn.stdpath("data") .. '/mason/bin/OpenDebugAD7',
+    name = 'cppdbg',
+    type = 'executable',
+    command = vim.fn.stdpath('data') .. '/mason/bin/OpenDebugAD7',
   }
-
-  dap.adapters.codelldb = {
-    name = "codelldb server",
-    type = 'server',
-    port = "${port}",
-    executable = {
-      command = vim.fn.stdpath("data") .. '/mason/bin/codelldb',
-      args = { "--port", "${port}" },
-    }
-  }
-
-  dap.configurations.cpp = {
+   dap.configurations.cpp = {
     {
-      name = 'Attach to process',
+      name = 'Attach to StarCCM+ process',
       type = 'cppdbg',
       request = 'attach',
+      MIMode = 'gdb',
+      udb='live',
+      miDebuggerPath = 'udb',
+      setupCommands= {
+				{
+					description= "Enable pretty-printing for gdb",
+					text= "-enable-pretty-printing",
+					ignoreFailures= true,
+				}
+      },
+      program = "${workspaceFolder}/lib/linux-x86_64-2.17/gnu11.2/lib/star-ccm+",
       processId = function()
-        local process = M.selectAndWait(M.processesOfUser(), "Select process", function(process) return process[11] .. ' ('..process[2]..')'end)
+        local process = M.selectAndWait(
+          M.processesOfUser(),
+          'Select process',
+          function(process)
+            return process[11] .. ' ('..process[2]..')'
+          end)
         local pid = process[2]
-        local path = process[11]
-        dap.configurations.cpp[1].program = path
-        print(path)
+        -- local path = process[11]
+        -- print(pid .. ', ' .. path)
+        -- dap.configurations.cpp[1].program = path
         return pid
       end,
-    }
-    --{
-    --  name = 'Attach to StarCCM+',
-    --  type = 'cppdbg',
-    --  request = 'attach',
-    --  processId = function()
-    --    -- execute linux ps and get PIDs and process names. write the output to a tmp file
-    --    local ps = M.processesWithName('starccm+')
-    --
-    --    if (length(ps) == 0) then
-    --      return ''
-    --    elseif (length(ps) == 1) then
-    --      local pid = ps[1]
-    --      local line = {}
-    --      for token in string.gmatch(item, "[^%s]+") do
-    --        table.insert(line, token)
-    --      end
-    --      pid = line[1]
-    --    else
-    --      local pid = M.selectAndWait(processes, "Select process")
-    --      local line = {}
-    --      for token in string.gmatch(item, "[^%s]+") do
-    --        table.insert(line, token)
-    --      end
-    --      pid = line[1]
-    --    end
-    --    return pid
-    --  end,
-    --},
-  }
+    },
+
+    {
+      name = 'Debug Program',
+      type = 'cppdbg',
+      request = 'launch',
+      MIMode = 'gdb',
+      cwd = '${workspaceFolder}',
+      udb='live',
+      miDebuggerPath = 'udb',
+      setupCommands= {
+				{
+					description= "Enable pretty-printing for gdb",
+					text= "-enable-pretty-printing",
+					ignoreFailures= true,
+				}
+      },
+      stopAtEntry = true,
+      program = function()
+        local program = M.inputAndWait('Select program')
+        print(program)
+        return program
+      end,
+    },
+
+    {
+      name = 'Debug Program',
+      type = 'cppdbg',
+      request = 'launch',
+      MIMode = 'gdb',
+      cwd = '${workspaceFolder}',
+      udb='live',
+      miDebuggerPath = 'udb',
+      setupCommands= {
+				{
+					description= "Enable pretty-printing for gdb",
+					text= "-enable-pretty-printing",
+					ignoreFailures= true,
+				}
+      },
+      stopAtEntry = true,
+      program = 'main',
+    },
+   }
   dap.configurations.h = dap.configurations.cpp
 end
 M.init()
