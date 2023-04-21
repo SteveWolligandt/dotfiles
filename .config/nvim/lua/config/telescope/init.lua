@@ -23,12 +23,6 @@ function M.setup()
           },
         },
       },
-      packer = {
-        theme = "ivy",
-        layout_config = {
-          height = .5
-        }
-      },
       dap = {},
       fzf = {
         fuzzy = true,                    -- false will only do exact matching
@@ -40,7 +34,6 @@ function M.setup()
     }
   }
 
-  telescope.load_extension("packer")
   telescope.load_extension('fzf')
   telescope.load_extension('dap')
   telescope.load_extension('file_browser')

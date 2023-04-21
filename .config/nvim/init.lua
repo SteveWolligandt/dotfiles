@@ -1,3 +1,4 @@
+require('plugins')
 local set = vim.opt
 set.fillchars     = ""
 set.laststatus    = 2
@@ -37,4 +38,3 @@ nmap <F4> :TagbarToggle <CR>
 autocmd BufRead * :lua require('config.dap').load_breakpoints()
 ]]
 
-require('plugins')

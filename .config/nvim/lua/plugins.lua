@@ -1,70 +1,80 @@
-vim.cmd [[packadd packer.nvim]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-return require('packer').startup(function()
-  use 'wbthomason/packer.nvim'
-
-  use {
+local plugins = {
+  {
     'sbdchd/neoformat',
     config = function()
       require('config.neoformat').setup()
     end,
-  }
+  },
 
-  use {
+  {
     'numToStr/Comment.nvim',
     config = function()
       require('Comment').setup({})
     end
-  }
+  },
 
-  use {
+  {
     'nvim-lualine/lualine.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
+    dependencies = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('lualine').setup()
     end
-  }
-  use {
+  },
+
+  {
     'alvarosevilla95/luatab.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
+    dependencies = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('luatab').setup{} 
     end
-  }
+  },
 
 -- views
-  use 'mbbill/undotree'
+  'mbbill/undotree',
 
 -- misc
-  use 'majutsushi/tagbar'
-  use {
+  'majutsushi/tagbar',
+  {
     'easymotion/vim-easymotion',
     config = function()
       require('config.easymotion').setup()
     end,
-  }
+  },
 
 -- git
-  use {
+  {
     'tpope/vim-fugitive',
     config = function()
       require('config.fugitive').setup()
     end
-  }
-  use 'airblade/vim-gitgutter'
+  },
+  'airblade/vim-gitgutter',
 
-  use {
+  {
     "folke/which-key.nvim",
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
       require("which-key").setup{}
     end
-  }
+  },
 
-  use {
+  {
     "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("todo-comments").setup {
         -- your configuration comes here
@@ -72,12 +82,13 @@ return require('packer').startup(function()
         -- refer to the configuration section below
       }
     end
-  }
+  },
 
 -- Debugging
-  use 'williamboman/mason.nvim'
-  use {'mfussenegger/nvim-dap',
-    requires = {
+  'williamboman/mason.nvim',
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
       "mfussenegger/nvim-dap-python",
@@ -87,12 +98,12 @@ return require('packer').startup(function()
     config = function()
       require("config.dap").setup()
     end,
-  }
+  },
 
 -- telescope
-  use {
+  {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
       'BurntSushi/ripgrep',
       'nvim-telescope/telescope-file-browser.nvim',
@@ -102,14 +113,13 @@ return require('packer').startup(function()
           require("config.dressing").setup()
         end},
       'nvim-telescope/telescope-dap.nvim',
-      'nvim-telescope/telescope-packer.nvim',
       {
         'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
       },
       {
         'EthanJWright/vs-tasks.nvim',
-        requires = {
+        dependencies = {
           'nvim-lua/popup.nvim',
         }
       },
@@ -117,90 +127,83 @@ return require('packer').startup(function()
     config = function()
       require("config.telescope").setup()
     end,
-  }
+  },
 
 -- Syntax
-  use {'nvim-treesitter/nvim-treesitter',
-       run = ':TSUpdate',
-       config = function()
-        require("config.treesitter").setup()
-       end}
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function()
+     require("config.treesitter").setup()
+    end
+  },
 
 -- colorschemes
-  use 'sainnhe/sonokai'
+  'sainnhe/sonokai',
   -- add more if you want
 
-  use {
+  {
+    'hrsh7th/nvim-cmp', 
+    -- config = function()
+    --   require("config.nvim-cmp").setup()
+    -- end,
+  },
+
+  {
    'neovim/nvim-lspconfig',
     config = function()
       require("config.lsp").setup()
     end,
-    requires = {
+    dependencies = {
       'hrsh7th/nvim-cmp',
-      'hrsh7th/cmp-nvim-lsp',
       'mfussenegger/nvim-jdtls',
       'p00f/clangd_extensions.nvim',
       'L3MON4D3/LuaSnip',
     },
-  }
+  },
 
-  use {
+  {
     "startup-nvim/startup.nvim",
     config = function()
       require('startup').setup({theme = "startify"})
     end
-  }
+  },
 
-
-  use {
-    'VonHeikemen/fine-cmdline.nvim',
-    requires = {
-      {'MunifTanjim/nui.nvim'}
-    },
-    config = function()
-      vim.api.nvim_set_keymap('n', ':', '<cmd>FineCmdline<CR>', {noremap = true})
-    end,
-  }
-
-  use {
+  {
     "nvim-neorg/neorg",
     config = function()
       require("config.neorg").setup()
     end,
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
-      {'hrsh7th/nvim-cmp', 
-        config = function()
-          require("config.nvim-cmp").setup()
-        end,
-      }
     }
-  }
+  },
 
 -- markdown
-  use 'godlygeek/tabular'
-  use 'plasticboy/vim-markdown'
-  use 'iamcco/markdown-preview.vim'
+  'godlygeek/tabular',
+  'plasticboy/vim-markdown',
+  'iamcco/markdown-preview.vim',
 
 -- cmake
-  use {
+  {
     'Shatur/neovim-cmake',
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
       'mfussenegger/nvim-dap',
       'mfussenegger/nvim-dap-python',
     }
-  }
+  },
 
 -- tmux
-  use 'tmux-plugins/vim-tmux-focus-events'
-  use 'roxma/vim-tmux-clipboard'
-  use 'christoomey/vim-tmux-navigator'
-  use 'mhinz/neovim-remote'
+  'tmux-plugins/vim-tmux-focus-events',
+  'roxma/vim-tmux-clipboard',
+  'christoomey/vim-tmux-navigator',
+  'mhinz/neovim-remote',
 
 -- Latex
-  use 'lervag/vimtex'
+  'lervag/vimtex',
 
 -- games
-  use 'alec-gibson/nvim-tetris'
-end)
+  'alec-gibson/nvim-tetris',
+}
+require("lazy").setup(plugins)

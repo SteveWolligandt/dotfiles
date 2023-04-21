@@ -1,1 +1,3 @@
 plugin/
+.cache/
+lazy-lock.json

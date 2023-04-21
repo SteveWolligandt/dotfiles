@@ -8,19 +8,17 @@ local function configure()
       ["core.export"] = {config={}},
       ["core.export.markdown"] = {config={}},
       ["core.integrations.treesitter"] = {config={}},
-      ["core.norg.completion"] = {config = {engine="nvim-cmp"}},
-      ["core.norg.dirman"] = {
+      -- ["core.completion"] = {config = {engine="nvim-cmp"}},
+      ["core.dirman"] = {
         config = {
           workspaces = {
-            notes = "~\\notes",
+            default = "~\\notes",
           },
-          default = 'notes',
-          open_last_workspace = true,
         }
       },
-      ["core.norg.qol.todo_items"] = {config = {}},
-      ["core.norg.esupports.hop"] = {config = {}},
-      ["core.norg.concealer"] = {config={}},
+      ["core.qol.todo_items"] = {config = {}},
+      ["core.esupports.hop"] = {config = {}},
+      ["core.concealer"] = {config={}},
       ["core.keybinds"] = {
         config = {}
       },

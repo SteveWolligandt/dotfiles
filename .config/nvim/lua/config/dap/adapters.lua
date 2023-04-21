@@ -84,66 +84,13 @@ function M.setup()
   }
    dap.configurations.cpp = {
     {
-      name = 'Attach to StarCCM+ process',
-      type = 'cppdbg',
-      request = 'attach',
-      MIMode = 'gdb',
-      udb='live',
-      miDebuggerPath = 'udb',
-      setupCommands= {
-				{
-					description= "Enable pretty-printing for gdb",
-					text= "-enable-pretty-printing",
-					ignoreFailures= true,
-				}
-      },
-      program = "${workspaceFolder}/lib/linux-x86_64-2.17/gnu11.2/lib/star-ccm+",
-      processId = function()
-        local process = M.selectAndWait(
-          M.processesOfUser(),
-          'Select process',
-          function(process)
-            return process[11] .. ' ('..process[2]..')'
-          end)
-        local pid = process[2]
-        -- local path = process[11]
-        -- print(pid .. ', ' .. path)
-        -- dap.configurations.cpp[1].program = path
-        return pid
-      end,
-    },
-
-    {
       name = 'Debug Program',
       type = 'cppdbg',
       request = 'launch',
       MIMode = 'gdb',
       cwd = '${workspaceFolder}',
-      udb='live',
-      miDebuggerPath = 'udb',
-      setupCommands= {
-				{
-					description= "Enable pretty-printing for gdb",
-					text= "-enable-pretty-printing",
-					ignoreFailures= true,
-				}
-      },
-      stopAtEntry = true,
-      program = function()
-        local program = M.inputAndWait('Select program')
-        print(program)
-        return program
-      end,
-    },
-
-    {
-      name = 'Debug Program',
-      type = 'cppdbg',
-      request = 'launch',
-      MIMode = 'gdb',
-      cwd = '${workspaceFolder}',
-      udb='live',
-      miDebuggerPath = 'udb',
+      -- udb='live',
+      -- miDebuggerPath = 'udb',
       setupCommands= {
 				{
 					description= "Enable pretty-printing for gdb",
