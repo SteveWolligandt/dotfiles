@@ -106,11 +106,6 @@ end
 
 
 local function configure()
-  require("mason").setup()
-  require("mason-nvim-dap").setup({
-    ensure_installed = {'cpptools', 'jdtls'}
-  })
-
   local dap_breakpoint = {
     error = {
       text = "⬤",

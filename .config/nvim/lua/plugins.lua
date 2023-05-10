@@ -84,8 +84,25 @@ local plugins = {
     end
   },
 
+-- Mason
+  {
+    'williamboman/mason.nvim',
+    dependencies = {
+      'williamboman/mason-lspconfig.nvim',
+      'jay-babu/mason-nvim-dap.nvim',
+    },
+    config = function()
+      require("mason").setup()
+      require("mason-lspconfig").setup{
+        ensure_installed = { 'lua_ls', 'jdtls', 'pyright' },
+      }
+      require("mason-nvim-dap").setup{
+        ensure_installed = { 'cppdbg'},
+      }
+    end,
+  },
+
 -- Debugging
-  'williamboman/mason.nvim',
   {
     'mfussenegger/nvim-dap',
     dependencies = {
@@ -93,14 +110,13 @@ local plugins = {
       "rcarriga/nvim-dap-ui",
       "mfussenegger/nvim-dap-python",
       "nvim-telescope/telescope-dap.nvim",
-      'jay-babu/mason-nvim-dap.nvim',
     },
     config = function()
       require("config.dap").setup()
     end,
   },
 
--- telescope
+-- Telescope
   {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     dependencies = {
@@ -191,8 +207,6 @@ local plugins = {
     'Shatur/neovim-cmake',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'mfussenegger/nvim-dap',
-      'mfussenegger/nvim-dap-python',
     }
   },
 

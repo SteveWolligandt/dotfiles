@@ -1,5 +1,4 @@
 local M = {}
-local lspconfig = require 'lspconfig' 
 local whichkey = require 'which-key'
 local luasnip = require 'luasnip'
 --------------------------------------------------------------------------------
