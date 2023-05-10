@@ -12,8 +12,9 @@ local function configure()
       ["core.dirman"] = {
         config = {
           workspaces = {
-            default = "~\\notes",
+            notes = "~/notes",
           },
+          default_workspace='notes'
         }
       },
       ["core.qol.todo_items"] = {config = {}},
@@ -31,6 +32,7 @@ end
 
 function M.setup()
   configure()
+  require('config.neorg.keymaps').setup()
 end
 
 return M

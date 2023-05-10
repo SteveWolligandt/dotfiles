@@ -20,6 +20,7 @@ set.exrc          = true
 vim.cmd[[
 set textwidth=100
 set formatoptions-=t
+set clipboard^=unnamed,unnamedplus
 syntax enable
 colorscheme sonokai "adjust as you wish
 

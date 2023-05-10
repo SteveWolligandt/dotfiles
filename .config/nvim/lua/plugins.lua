@@ -129,7 +129,7 @@ local plugins = {
     end,
   },
 
--- Syntax
+-- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -138,7 +138,7 @@ local plugins = {
     end
   },
 
--- colorschemes
+-- Color Schemes
   'sainnhe/sonokai',
   -- add more if you want
 
@@ -176,7 +176,8 @@ local plugins = {
     end,
     dependencies = {
       'nvim-lua/plenary.nvim',
-    }
+    },
+    build = ":Neorg sync-parsers",
   },
 
 -- markdown
