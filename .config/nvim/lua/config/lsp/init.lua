@@ -22,7 +22,8 @@ function M.setup()
     })
 
   require('config.lsp.cpp').setup()
-  -- require('config.lsp.java').setup()
+  require('config.lsp.python').setup()
+  require('config.lsp.lua').setup()
 
   -- nvim-cmp setup
   local cmp = require 'cmp'
@@ -79,7 +80,7 @@ end
 --------------------------------------------------------------------------------
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-function M.on_attach(client, bufnr)
+function M.on_attach(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 

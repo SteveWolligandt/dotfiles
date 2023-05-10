@@ -38,24 +38,6 @@ function M.setup()
         priority = 100,
       },
       ast = {
-        -- These are unicode, should be available in any font
-        -- role_icons = {
-        --      type = "",
-        --      declaration = "",
-        --      expression = "",
-        --      statement = ";",
-        --      specifier = "",
-        --      ["template argument"] = "",
-        -- },
-        -- kind_icons = {
-        --     Compound = "",
-        --     Recovery = "",
-        --     TranslationUnit = "",
-        --     PackExpansion = "",
-        --     TemplateTypeParm = "",
-        --     TemplateTemplateParm = "",
-        --     TemplateParamObject = "",
-        -- },
         role_icons = {
           type = "",
           declaration = "",

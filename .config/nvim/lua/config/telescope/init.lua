@@ -40,8 +40,6 @@ function M.setup()
   telescope.load_extension('project')
 
   require("config.telescope.keymaps").setup() -- Keymaps
-
-  vim.api.nvim_set_keymap('n', '<CR>', '<cmd>Telescope commands<CR>', {noremap = true})
 end
 
 return M

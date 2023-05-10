@@ -159,6 +159,7 @@ local plugins = {
       'mfussenegger/nvim-jdtls',
       'p00f/clangd_extensions.nvim',
       'L3MON4D3/LuaSnip',
+      'folke/neodev.nvim'
     },
   },
 
