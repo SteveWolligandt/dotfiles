@@ -23,6 +23,8 @@ function M.setup()
   require('config.lsp.cpp').setup()
   require('config.lsp.python').setup()
   require('config.lsp.lua').setup()
+  require('config.lsp.typescript').setup()
+  require('config.lsp.golang').setup()
 
   -- nvim-cmp setup
   local cmp = require 'cmp'

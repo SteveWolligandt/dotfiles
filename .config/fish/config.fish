@@ -6,6 +6,11 @@ alias cninja 'cmake -GNinja'
 alias ccninja 'ccmake -GNinja'
 alias vim 'nvim'
 
+alias ls 'exa'
+alias cat 'bat'
+alias du 'dust'
+alias df 'duf'
+
 source /usr/share/autojump/autojump.fish
 
 set -g theme_display_git yes
@@ -18,4 +23,4 @@ set -g theme_display_git_default_branch yes
 set -g theme_git_default_branches master main
 set -g theme_title_use_abbreviated_path yes
 
-set -x DISPLAY 192.168.2.1:0
+set -x DISPLAY 172.26.128.1:0

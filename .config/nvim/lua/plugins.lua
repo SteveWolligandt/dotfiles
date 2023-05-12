@@ -94,7 +94,7 @@ local plugins = {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup{
-        ensure_installed = { 'lua_ls', 'jdtls', 'pyright' },
+        ensure_installed = { 'lua_ls', 'jdtls', 'pyright', 'typescript-language-server' },
       }
       require("mason-nvim-dap").setup{
         ensure_installed = { 'cppdbg'},
@@ -172,6 +172,7 @@ local plugins = {
     end,
     dependencies = {
       'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
       'mfussenegger/nvim-jdtls',
       'p00f/clangd_extensions.nvim',
       'L3MON4D3/LuaSnip',
