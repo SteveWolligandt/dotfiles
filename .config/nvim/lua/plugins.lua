@@ -94,7 +94,7 @@ local plugins = {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup{
-        ensure_installed = { 'lua_ls', 'jdtls', 'pyright', 'typescript-language-server' },
+        ensure_installed = { 'lua_ls', 'jdtls', 'pyright', 'gopls', 'typescript-language-server' },
       }
       require("mason-nvim-dap").setup{
         ensure_installed = { 'cppdbg'},
