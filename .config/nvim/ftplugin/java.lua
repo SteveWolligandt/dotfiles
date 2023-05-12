@@ -3,10 +3,9 @@ local cmp_nvim_lsp = require "cmp_nvim_lsp"
 local jdtls = require'jdtls'
 local home = os.getenv("HOME")
 local mason_path = vim.fn.stdpath('data') .. '/mason'
-local jdtls_bin = mason_path .. "/bin/jdtls"
 local jdtls_path = mason_path .. "/packages/jdtls"
 local equinox_version = '1.6.400.v20210924-0641'
-local equinox_jar_path = 
+local equinox_jar_path =
   jdtls_path .. "/plugins/org.eclipse.equinox.launcher_" .. equinox_version .. ".jar"
 
 local os = ''
