@@ -23,7 +23,6 @@ end
 function breakpoints_path()
   local cwd = vim.fn.getcwd()
   local cache_path = cwd .. '/.cache'
-  print('checking for ' .. cache_path)
   if (not exists(cache_path)) then
     os.execute("mkdir " .. cache_path)
   end

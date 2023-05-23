@@ -93,8 +93,12 @@ local plugins = {
     },
     config = function()
       require("mason").setup()
+      local lsps = { 'lua_ls', 'jdtls', 'pyright', 'tsserver', 'texlab' }
+      if vim.fn.executable('go') == 1 then
+        table.insert(lsps, 'gopls')
+      end
       require("mason-lspconfig").setup{
-        ensure_installed = { 'lua_ls', 'jdtls', 'pyright', 'gopls', 'tsserver', 'texlab' },
+        ensure_installed = lsps,
       }
       require("mason-nvim-dap").setup{
         ensure_installed = { 'cppdbg'},
