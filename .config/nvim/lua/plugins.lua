@@ -94,7 +94,7 @@ local plugins = {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup{
-        ensure_installed = { 'lua_ls', 'jdtls', 'pyright', 'gopls', 'typescript-language-server' },
+        ensure_installed = { 'lua_ls', 'jdtls', 'pyright', 'gopls', 'tsserver', 'texlab' },
       }
       require("mason-nvim-dap").setup{
         ensure_installed = { 'cppdbg'},
@@ -218,7 +218,7 @@ local plugins = {
   'mhinz/neovim-remote',
 
 -- Latex
-  'lervag/vimtex',
+  -- 'lervag/vimtex',
 
 -- games
   'alec-gibson/nvim-tetris',
