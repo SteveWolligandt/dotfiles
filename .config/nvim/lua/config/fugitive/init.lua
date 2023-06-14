@@ -7,6 +7,7 @@ function M.setup()
       g = {'<cmd>:Git<CR>',        'git status'},
       c = {'<cmd>:Git commit<CR>', 'git commit'},
       l = {'<cmd>:Git log<CR>',    'git log'},
+      L = {'<cmd>:LazyGit<CR>',    'lazygit'},
       d = {'<cmd>:Gdiff<CR>',      'git diff'},
       b = {'<cmd>:Git blame<CR>',  'git blame'},
       h = {name = 'Hunk',

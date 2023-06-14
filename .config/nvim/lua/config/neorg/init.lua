@@ -17,9 +17,18 @@ local function configure()
           default_workspace='notes'
         }
       },
-      ["core.qol.todo_items"] = {config = {}},
-      ["core.esupports.hop"] = {config = {}},
-      ["core.concealer"] = {config={}},
+      ["core.qol.todo_items"] = {
+        config = {
+          create_todo_items = true,
+          create_todo_parents = true,
+        },
+      },
+      ["core.esupports.hop"] = {
+        config = {}
+      },
+      ["core.concealer"] = {
+        config={}
+      },
       ["core.keybinds"] = {
         config = {}
       },

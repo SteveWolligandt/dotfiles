@@ -30,7 +30,7 @@ local plugins = {
     'nvim-lualine/lualine.nvim',
     dependencies = 'kyazdani42/nvim-web-devicons',
     config = function()
-      require('lualine').setup()
+      require('lualine').setup{}
     end
   },
 
@@ -62,6 +62,7 @@ local plugins = {
     end
   },
   'airblade/vim-gitgutter',
+  'kdheepak/lazygit.nvim',
 
   {
     "folke/which-key.nvim",
@@ -93,7 +94,11 @@ local plugins = {
     },
     config = function()
       require("mason").setup()
-      local lsps = { 'lua_ls', 'jdtls', 'pyright', 'tsserver', 'texlab' }
+      local lsps = { 'lua_ls', 'jdtls', 'texlab' }
+      if vim.fn.executable('npm') == 1 then
+        table.insert(lsps, 'pyright')
+        table.insert(lsps, 'tsserver')
+      end
       if vim.fn.executable('go') == 1 then
         table.insert(lsps, 'gopls')
       end
