@@ -7,6 +7,9 @@ function M.setup()
     on_attach = require'config.lsp'.on_attach,
     settings = {
       Lua = {
+        workspace = {
+          checkThirdParty = false,
+        },
         completion = {
           callSnippet = "Replace"
         }
