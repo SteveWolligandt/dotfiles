@@ -1,6 +1,8 @@
 require('plugins')
 local set = vim.opt
-set.fillchars     = ""
+set.conceallevel  = 1
+set.concealcursor = 'n'
+set.fillchars     = ''
 set.laststatus    = 2
 set.mouse         = 'a'
 set.expandtab     = true
