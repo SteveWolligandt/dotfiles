@@ -203,6 +203,7 @@ local plugins = {
     end,
     dependencies = {
       'nvim-lua/plenary.nvim',
+      'folke/zen-mode.nvim',
     },
     build = ":Neorg sync-parsers",
   },

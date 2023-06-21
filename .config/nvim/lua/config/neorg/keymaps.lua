@@ -7,6 +7,7 @@ M.setup = function()
       name = "Neorg",
       i = { "<cmd>Neorg index<cr>", "Open Index" },
       j = { "<cmd>Neorg journal<cr>", "Journal" },
+      t = { "<cmd>Neorg toc<cr>", "TOC" },
     },
   }
 
