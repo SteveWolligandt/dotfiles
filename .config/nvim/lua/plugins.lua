@@ -254,6 +254,9 @@ local plugins = {
       'folke/zen-mode.nvim',
       {
         'lukas-reineke/headlines.nvim',
+        dependencies = {
+          'nvim-treesitter/nvim-treesitter',
+        },
         config = function()
           require("headlines").setup({
               norg = {
