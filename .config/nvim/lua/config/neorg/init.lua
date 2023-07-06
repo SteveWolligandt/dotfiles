@@ -4,11 +4,17 @@ local function configure()
   require('neorg').setup {
     load = {
       ['core.defaults'] = {},
+      ['core.neorgcmd'] = {},
+      ['core.summary'] = {},
+      ['core.journal'] = {},
       ['core.autocommands'] = {},
       ['core.export'] = {config={}},
       ['core.export.markdown'] = {config={}},
       ['core.integrations.treesitter'] = {config={}},
       -- ['core.completion'] = {config = {engine='nvim-cmp'}},
+      -- ['core.tempus'] = {},
+      -- ['core.manoeuvre'] = {},
+      -- ['core.ui.calendar'] = {},
       ['core.dirman'] = {
         config = {
           workspaces = {
