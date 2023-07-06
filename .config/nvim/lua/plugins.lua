@@ -1,4 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local config = require 'config'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -15,7 +16,8 @@ local plugins = {
   {
     'sbdchd/neoformat',
     config = function()
-      require('config.neoformat').setup()
+      require('config').neoformat = require('config.neoformat')
+      require('config').neoformat.setup()
     end,
   },
 
@@ -164,7 +166,52 @@ local plugins = {
   },
 
 -- Color Schemes
-  'sainnhe/sonokai',
+
+  {
+    'sainnhe/sonokai',
+    config = function()
+        vim.cmd('syntax enable')
+        -- vim.cmd('colorscheme sonokai')
+    end,
+  },
+  {
+    'NTBBloodbath/doom-one.nvim',
+    setup = function()
+        -- Add color to cursor
+        vim.g.doom_one_cursor_coloring = false
+        -- Set :terminal colors
+        vim.g.doom_one_terminal_colors = true
+        -- Enable italic comments
+        vim.g.doom_one_italic_comments = false
+        -- Enable TS support
+        vim.g.doom_one_enable_treesitter = true
+        -- Color whole diagnostic text or only underline
+        vim.g.doom_one_diagnostics_text_color = false
+        -- Enable transparent background
+        vim.g.doom_one_transparent_background = false
+
+        -- Pumblend transparency
+        vim.g.doom_one_pumblend_enable = false
+        vim.g.doom_one_pumblend_transparency = 20
+
+        -- Plugins integration
+        vim.g.doom_one_plugin_neorg = true
+        vim.g.doom_one_plugin_barbar = false
+        vim.g.doom_one_plugin_telescope = false
+        vim.g.doom_one_plugin_neogit = true
+        vim.g.doom_one_plugin_nvim_tree = true
+        vim.g.doom_one_plugin_dashboard = true
+        vim.g.doom_one_plugin_startify = true
+        vim.g.doom_one_plugin_whichkey = true
+        vim.g.doom_one_plugin_indent_blankline = true
+        vim.g.doom_one_plugin_vim_illuminate = true
+        vim.g.doom_one_plugin_lspsaga = false
+    end,
+    config = function()
+        vim.cmd('syntax enable')
+        vim.cmd('colorscheme doom-one')
+    end,
+  },
   -- add more if you want
 
   {
@@ -177,7 +224,8 @@ local plugins = {
   {
    'neovim/nvim-lspconfig',
     config = function()
-      require("config.lsp").setup()
+      config.lsp = require("config.lsp")
+      config.lsp.setup()
     end,
     dependencies = {
       'hrsh7th/nvim-cmp',
@@ -204,6 +252,49 @@ local plugins = {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'folke/zen-mode.nvim',
+      {
+        'lukas-reineke/headlines.nvim',
+        config = function()
+          require("headlines").setup({
+              norg = {
+                query = vim.treesitter.query.parse(
+                  "norg",
+                  [[
+                      [
+                          (heading1_prefix)
+                          (heading2_prefix)
+                          (heading3_prefix)
+                          (heading4_prefix)
+                          (heading5_prefix)
+                          (heading6_prefix)
+                      ] @headline
+
+                      (weak_paragraph_delimiter) @dash
+                      (strong_paragraph_delimiter) @doubledash
+
+                      ((ranged_tag
+                          name: (tag_name) @_name
+                          (#eq? @_name "code")
+                      ) @codeblock (#offset! @codeblock 0 0 1 0))
+
+                      (quote1_prefix) @quote
+                  ]]
+                ),
+                headline_highlights = { "Headline" },
+                codeblock_highlight = "CodeBlock",
+                dash_highlight = "Dash",
+                dash_string = "-",
+                doubledash_highlight = "DoubleDash",
+                doubledash_string = "=",
+                quote_highlight = "Quote",
+                quote_string = "┃",
+                fat_headlines = true,
+                fat_headline_upper_string = "▄",
+                fat_headline_lower_string = "▀"
+            }
+          })
+        end
+      },
     },
     build = ":Neorg sync-parsers",
   },

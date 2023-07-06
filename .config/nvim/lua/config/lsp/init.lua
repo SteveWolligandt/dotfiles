@@ -1,11 +1,22 @@
 local M = {}
 local whichkey = require 'which-key'
-local luasnip = require 'luasnip'
+local luasnip  = require 'luasnip'
+local cmp      = require 'cmp'
+local clangd_extensions = {
+  cmp_scores = require("clangd_extensions.cmp_scores"),
+}
+
 --------------------------------------------------------------------------------
 function M.setup()
+  M.cpp        = require 'config.lsp.cpp'
+  M.python     = require 'config.lsp.python'
+  M.lua        = require 'config.lsp.lua'
+  M.typescript = require 'config.lsp.typescript'
+  M.golang     = require 'config.lsp.golang'
+  M.latex      = require 'config.lsp.latex'
   -- Mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-  local opts = { noremap=true, silent=true }
+  local opts = {noremap = true, silent = true}
   vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   whichkey.register({
@@ -20,38 +31,16 @@ function M.setup()
       nowait = false,
     })
 
-  require('config.lsp.cpp').setup()
-  require('config.lsp.python').setup()
+  M.cpp.setup()
+  M.python.setup()
+  M.typescript.setup()
+  M.golang.setup()
+  M.latex.setup()
   if vim.fn.executable('lua-language-server') == 1 then
-    require('config.lsp.lua').setup {
-      settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-          },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = {'vim'},
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-          },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
-        },
-      },
-    }
+    M.lua.setup()
   end
-  require('config.lsp.typescript').setup()
-  require('config.lsp.golang').setup()
-  require('config.lsp.latex').setup()
 
   -- nvim-cmp setup
-  local cmp = require 'cmp'
   cmp.setup {
     snippet = {
         expand = function(args)
@@ -93,7 +82,7 @@ function M.setup()
         cmp.config.compare.offset,
         cmp.config.compare.exact,
         cmp.config.compare.recently_used,
-        require("clangd_extensions.cmp_scores"),
+        clangd_extensions.cmp_scores,
         cmp.config.compare.kind,
         cmp.config.compare.sort_text,
         cmp.config.compare.length,
@@ -106,6 +95,7 @@ end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 function M.on_attach(_, bufnr)
+  print('attached')
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 

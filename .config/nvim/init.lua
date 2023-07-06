@@ -1,4 +1,4 @@
-require('plugins')
+require 'plugins'
 local set = vim.opt
 set.conceallevel  = 1
 set.concealcursor = 'n'
@@ -19,12 +19,11 @@ set.foldmethod    = 'syntax'
 set.foldlevel     = 20
 set.exrc          = true
 
+
 vim.cmd[[
 set textwidth=100
 set formatoptions-=t
 set clipboard^=unnamed,unnamedplus
-syntax enable
-colorscheme sonokai "adjust as you wish
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>

@@ -1,20 +1,35 @@
-local M = {}
-local lspconfig = require 'lspconfig'
+local M            = {}
+local lspconfig    = require 'lspconfig'
+local neodev       = require 'neodev'
+local config       = require 'config'
+local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 --------------------------------------------------------------------------------
 function M.setup()
-  require("neodev").setup{}
+  neodev.setup{}
+
   lspconfig.lua_ls.setup{
-    on_attach = require'config.lsp'.on_attach,
     settings = {
       Lua = {
+        -- runtime = {
+        --   -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        --   version = 'LuaJIT',
+        -- },
         workspace = {
+        --   -- Make the server aware of Neovim runtime files
+        --   library = vim.api.nvim_get_runtime_file("", true),
           checkThirdParty = false,
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
         },
         completion = {
           callSnippet = "Replace"
-        }
-      }
-    }
+        },
+      },
+    },
+    on_attach = config.lsp.on_attach,
+    capabilities = cmp_nvim_lsp.default_capabilities(),
   }
 end
 --------------------------------------------------------------------------------
