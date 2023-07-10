@@ -8,12 +8,9 @@ local function configure()
       ['core.summary'] = {},
       ['core.journal'] = {},
       ['core.autocommands'] = {},
-      ['core.export'] = {config={}},
-      ['core.export.markdown'] = {config={}},
-      ['core.integrations.treesitter'] = {config={}},
-      -- ['core.completion'] = {config = {engine='nvim-cmp'}},
-      -- ['core.tempus'] = {},
-      -- ['core.manoeuvre'] = {},
+      -- ['core.export'] = {config={}},
+      -- ['core.export.markdown'] = {config={}},
+      -- ['core.integrations.treesitter'] = {config={}},
       -- ['core.ui.calendar'] = {},
       ['core.dirman'] = {
         config = {
@@ -29,9 +26,9 @@ local function configure()
           create_todo_parents = true,
         },
       },
-      ['core.esupports.hop'] = {
-        config = {}
-      },
+      -- ['core.esupports.hop'] = {
+      --   config = {}
+      -- },
       ['core.concealer'] = {
         config={
           icons={
@@ -41,12 +38,12 @@ local function configure()
           },
         }
       },
-      ['core.keybinds'] = {
-        config = {}
-      },
-      ['core.presenter'] = {
-        config = { zen_mode = 'zen-mode' }
-      }
+      -- ['core.keybinds'] = {
+      --   config = {}
+      -- },
+      -- ['core.presenter'] = {
+      --   config = { zen_mode = 'zen-mode' }
+      -- }
     }
   }
 end
