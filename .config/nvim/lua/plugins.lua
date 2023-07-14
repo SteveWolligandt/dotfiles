@@ -13,6 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+  'sitiom/nvim-numbertoggle',
   {
     'sbdchd/neoformat',
     config = function()
@@ -88,10 +89,21 @@ local plugins = {
   },
 
 -- views
-  'mbbill/undotree',
+   {
+     'mbbill/undotree',
+     config = function()
+       map('n','<F3>', ':UndotreeToggle <CR>')
+     end
+   },
 
+ -- misc
+  {
+    'majutsushi/tagbar',
+     config = function()
+       map('n', '<F4>', '<Cmd>TagbarToggle<CR>', opts)
+     end
+  },
 -- misc
-  'majutsushi/tagbar',
   {
     'easymotion/vim-easymotion',
     config = function()
@@ -200,15 +212,55 @@ local plugins = {
       },
       {
         'EthanJWright/vs-tasks.nvim',
-        dependencies = {
-          'nvim-lua/popup.nvim',
-        }
       },
     },
     config = function()
       require("config.telescope").setup()
     end,
   },
+  {
+  'EthanJWright/vs-tasks.nvim',
+  dependencies = {
+    'nvim-lua/popup.nvim',
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim',
+    {
+      "akinsho/toggleterm.nvim",
+      version = '*',
+      config = function()
+        require("toggleterm").setup{
+          open_mapping=[[<C-\>]],
+          direction='float',
+          --shell="zsh",
+          shell="fish",
+        }
+      end
+    },
+  },
+  config = function()
+    require('vstask').setup{
+      cache_json_conf=false,
+      terminal = 'toggleterm',
+      config_dir = ".",
+      term_opts = {
+        current = {
+          direction = "float",
+        },
+        vertical = {
+          direction = "vertical",
+          size = "80"
+        },
+        horizontal = {
+          direction = "horizontal",
+          size = "30"
+        },
+        tab = {
+          direction = 'tab',
+        }
+      },
+    }
+  end
+},
 
 -- Treesitter
   {
@@ -291,12 +343,48 @@ local plugins = {
   },
 
   {
-    "startup-nvim/startup.nvim",
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
     config = function()
-      require('startup').setup({theme = "startify"})
-    end
+      require('dashboard').setup {
+        config = {
+          -- shortcut = {
+          --   {
+          --     desc = 'Jira',
+          --     -- action = function()
+          --     --   vim.cmd('exec ":!open https://jira.cd-adapco.com"')
+          --     -- end,
+          --   },
+          -- },
+          packages = {
+            enable = true -- show how many plugins neovim loaded
+          },
+          -- limit how many projects list, action when you press key or enter it will run this action.
+          -- action can be a functino type, e.g.
+          -- action = func(path) vim.cmd('Telescope find_files cwd=' .. path) end
+          project = {
+            enable = true,
+            -- limit = 8,
+            -- icon = 'your icon',
+            -- label = '',
+            -- action = 'Telescope find_files cwd='
+          },
+          mru = { -- most recent files used
+            -- limit = 10,
+            -- label = '',
+          },
+          footer = {}, -- footer
+          week_header = {
+            enable = true, --boolean use a week header
+            -- concat = true, --concat string after time string line
+            -- append = true, --table append after time string line
+          },
+          disable_move = false  -- boolean default is false disable move key
+        }
+      }
+    end,
+    dependencies = { {'nvim-tree/nvim-web-devicons'}}
   },
-
   {
     "nvim-neorg/neorg",
     config = function()
