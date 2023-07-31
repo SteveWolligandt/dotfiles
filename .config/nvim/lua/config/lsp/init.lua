@@ -110,9 +110,17 @@ function M.on_attach(_, bufnr)
         t = { '<cmd>lua vim.lsp.buf.type_definition()<CR>', 'Go to type definition' },
         r = { '<cmd>lua vim.lsp.buf.references()<CR>', 'Go to reference' },
         i = { '<cmd>lua vim.lsp.buf.implementation()<CR>', 'Go to implementation' },
+        h = { '<cmd>lua vim.lsp.buf.hover()<CR>', 'Hover' },
       },
+    },
+    {
+      mode = "n",
+      silent = true,
+      noremap = true,
+      nowait = false,
+    })  whichkey.register({
+    name = 'LSP',
       q = { '<cmd>lua vim.diagnostic.setloclist()<CR>', 'Set Loc List' },
-      h = { '<cmd>lua vim.lsp.buf.hover()<CR>', 'Hover' },
       k = { '<cmd>lua vim.lsp.buf.signature_help()<CR>', 'Signature Help' },
       w = {name = 'Workspace',
         a = {'<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', 'Add workspace folder'},

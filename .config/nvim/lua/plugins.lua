@@ -46,7 +46,7 @@ local plugins = {
     init = function() vim.g.barbar_auto_setup = false end,
     config = function()
       require('barbar').setup{}
-      local map = vim.api.nvim_set_keymap                                                                                                                                                                                                      
+      local map = vim.api.nvim_set_keymap
       local opts = { noremap = true, silent = true }
       -- Move to previous/next
       map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
@@ -92,7 +92,9 @@ local plugins = {
    {
      'mbbill/undotree',
      config = function()
-       map('n','<F3>', ':UndotreeToggle <CR>')
+       local map = vim.api.nvim_set_keymap
+       local opts = { noremap = true, silent = true }
+       map('n','<F3>', ':UndotreeToggle <CR>', opts)
      end
    },
 
@@ -100,6 +102,8 @@ local plugins = {
   {
     'majutsushi/tagbar',
      config = function()
+       local map = vim.api.nvim_set_keymap
+       local opts = { noremap = true, silent = true }
        map('n', '<F4>', '<Cmd>TagbarToggle<CR>', opts)
      end
   },
@@ -210,57 +214,60 @@ local plugins = {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
       },
-      {
-        'EthanJWright/vs-tasks.nvim',
-      },
     },
     config = function()
       require("config.telescope").setup()
     end,
   },
   {
-  'EthanJWright/vs-tasks.nvim',
-  dependencies = {
-    'nvim-lua/popup.nvim',
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim',
-    {
-      "akinsho/toggleterm.nvim",
-      version = '*',
-      config = function()
-        require("toggleterm").setup{
-          open_mapping=[[<C-\>]],
-          direction='float',
-          --shell="zsh",
-          shell="fish",
-        }
-      end
+    'stevearc/overseer.nvim',
+    opts = {
+      strategy = 'toggleterm',
     },
   },
-  config = function()
-    require('vstask').setup{
-      cache_json_conf=false,
-      terminal = 'toggleterm',
-      config_dir = ".",
-      term_opts = {
-        current = {
-          direction = "float",
-        },
-        vertical = {
-          direction = "vertical",
-          size = "80"
-        },
-        horizontal = {
-          direction = "horizontal",
-          size = "30"
-        },
-        tab = {
-          direction = 'tab',
-        }
-      },
-    }
-  end
-},
+  {
+    "akinsho/toggleterm.nvim",
+    version = '*',
+    config = function()
+      require("toggleterm").setup{
+        open_mapping=[[<C-\>]],
+        direction='float',
+        --shell="zsh",
+        shell="fish",
+      }
+    end
+  },
+  -- {
+  -- 'EthanJWright/vs-tasks.nvim',
+  -- dependencies = {
+  --   'nvim-lua/popup.nvim',
+  --   'nvim-lua/plenary.nvim',
+  --   'nvim-telescope/telescope.nvim',
+  -- },
+  --   config = function()
+  --     require('vstask').setup{
+  --       cache_json_conf=false,
+  --       terminal = 'toggleterm',
+  --       config_dir = ".",
+  --       term_opts = {
+  --         current = {
+  --           direction = "float",
+  --         },
+  --         vertical = {
+  --           direction = "vertical",
+  --           size = "80"
+  --         },
+  --         horizontal = {
+  --           direction = "horizontal",
+  --           size = "30"
+  --         },
+  --         tab = {
+  --           direction = 'tab',
+  --         }
+  --       },
+  --     }
+  --   end
+  -- },
 
 -- Treesitter
   {

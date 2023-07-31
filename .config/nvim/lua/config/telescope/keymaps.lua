@@ -23,7 +23,7 @@ function M.setup()
       p = { '<cmd>Telescope project <cr>', 'Project'},
       h = { '<cmd>Telescope help_tags <cr>', 'Help Tags'},
       d = { '<cmd>Telescope dap configurations <cr>', 'DAP Configurations'},
-      t = { '<cmd>lua require("telescope").extensions.vstask.tasks() <cr>', 'Tasks'},
+      t = { '<cmd>Telescope toggletasks spawn<cr>', 'Tasks'},
       -- vim.api.nvim_set_keymap('n', '<leader>tti', ':lua require("telescope").extensions.vstask.inputs() <cr>', { noremap = true })
       -- vim.api.nvim_set_keymap('n', '<leader>tth', ':lua require("telescope").extensions.vstask.history() <cr>', { noremap = true })
       -- vim.api.nvim_set_keymap('n', '<leader>ttl', ':lua require("telescope").extensions.vstask.launch() <cr>', { noremap = true })
