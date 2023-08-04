@@ -4,10 +4,10 @@ function M.setup()
   local keymap = {
     g = {
       name = 'Git',
-      g = {'<cmd>:Git<CR>',        'git status'},
+      -- g = {'<cmd>:Git<CR>',        'git status'},
       c = {'<cmd>:Git commit<CR>', 'git commit'},
       l = {'<cmd>:Git log<CR>',    'git log'},
-      L = {'<cmd>:LazyGit<CR>',    'lazygit'},
+      g = {'<cmd>:LazyGit<CR>',    'lazygit'},
       d = {'<cmd>:Gvdiff<CR>',     'git diff'},
       b = {'<cmd>:Git blame<CR>',  'git blame'},
       h = {name = 'Hunk',

@@ -32,9 +32,9 @@ local plugins = {
   {
     'nvim-lualine/lualine.nvim',
     dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      require('lualine').setup{}
-    end
+    opts = {
+      theme = 'tokyonight-night',
+    },
   },
 
   {
@@ -233,7 +233,7 @@ local plugins = {
         open_mapping=[[<C-\>]],
         direction='float',
         --shell="zsh",
-        shell="fish",
+        -- shell="fish",
       }
     end
   },
@@ -279,7 +279,13 @@ local plugins = {
   },
 
 -- Color Schemes
-
+  {
+    'folke/tokyonight.nvim',
+    config = function()
+        vim.cmd('syntax enable')
+        vim.cmd('colorscheme tokyonight-night')
+    end,
+  },
   {
     'sainnhe/sonokai',
     config = function()
@@ -322,7 +328,7 @@ local plugins = {
     end,
     config = function()
         vim.cmd('syntax enable')
-        vim.cmd('colorscheme doom-one')
+        -- vim.cmd('colorscheme doom-one')
     end,
   },
 
