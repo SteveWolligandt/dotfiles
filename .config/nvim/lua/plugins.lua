@@ -24,9 +24,7 @@ local plugins = {
 
   {
     'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup({})
-    end
+    opts = {},
   },
 
   {
@@ -118,9 +116,7 @@ local plugins = {
 -- git
   {
     'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-    end
+    opts = {},
   },
   {
     'tpope/vim-fugitive',
@@ -148,13 +144,7 @@ local plugins = {
   {
     "folke/todo-comments.nvim",
     dependencies = "nvim-lua/plenary.nvim",
-    config = function()
-      require("todo-comments").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
+    opts = {},
   },
 
 -- Mason
@@ -228,14 +218,12 @@ local plugins = {
   {
     "akinsho/toggleterm.nvim",
     version = '*',
-    config = function()
-      require("toggleterm").setup{
-        open_mapping=[[<C-\>]],
-        direction='float',
-        --shell="zsh",
-        -- shell="fish",
-      }
-    end
+    opts = {
+      open_mapping=[[<C-\>]],
+      direction='float',
+      --shell="zsh",
+      -- shell="fish",
+    }
   },
   -- {
   -- 'EthanJWright/vs-tasks.nvim',
@@ -358,46 +346,45 @@ local plugins = {
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
-    config = function()
-      require('dashboard').setup {
-        config = {
-          -- shortcut = {
-          --   {
-          --     desc = 'Jira',
-          --     -- action = function()
-          --     --   vim.cmd('exec ":!open https://jira.cd-adapco.com"')
-          --     -- end,
-          --   },
-          -- },
-          packages = {
-            enable = true -- show how many plugins neovim loaded
-          },
-          -- limit how many projects list, action when you press key or enter it will run this action.
-          -- action can be a functino type, e.g.
-          -- action = func(path) vim.cmd('Telescope find_files cwd=' .. path) end
-          project = {
-            enable = true,
-            -- limit = 8,
-            -- icon = 'your icon',
-            -- label = '',
-            -- action = 'Telescope find_files cwd='
-          },
-          mru = { -- most recent files used
-            -- limit = 10,
-            -- label = '',
-          },
-          footer = {}, -- footer
-          week_header = {
-            enable = true, --boolean use a week header
-            -- concat = true, --concat string after time string line
-            -- append = true, --table append after time string line
-          },
-          disable_move = false  -- boolean default is false disable move key
-        }
+    opts = {
+      config = {
+        -- shortcut = {
+        --   {
+        --     desc = 'Jira',
+        --     -- action = function()
+        --     --   vim.cmd('exec ":!open https://jira.cd-adapco.com"')
+        --     -- end,
+        --   },
+        -- },
+        packages = {
+          enable = true -- show how many plugins neovim loaded
+        },
+        -- limit how many projects list, action when you press key or enter it will run this action.
+        -- action can be a functino type, e.g.
+        -- action = func(path) vim.cmd('Telescope find_files cwd=' .. path) end
+        project = {
+          enable = true,
+          -- limit = 8,
+          -- icon = 'your icon',
+          -- label = '',
+          -- action = 'Telescope find_files cwd='
+        },
+        mru = { -- most recent files used
+          -- limit = 10,
+          -- label = '',
+        },
+        footer = {}, -- footer
+        week_header = {
+          enable = true, --boolean use a week header
+          -- concat = true, --concat string after time string line
+          -- append = true, --table append after time string line
+        },
+        disable_move = false  -- boolean default is false disable move key
       }
-    end,
+    },
     dependencies = { {'nvim-tree/nvim-web-devicons'}}
   },
+
   {
     "nvim-neorg/neorg",
     config = function()
@@ -406,21 +393,23 @@ local plugins = {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'folke/zen-mode.nvim',
-      {
-        'lukas-reineke/headlines.nvim',
-        dependencies = 'nvim-treesitter/nvim-treesitter',
-        config = function()
-          require("headlines").setup({
-              norg = {
-                fat_headlines = true,
-                fat_headline_upper_string = "▄",
-                fat_headline_lower_string = "▀"
-            }
-          })
-        end
-      },
+      'lukas-reineke/headlines.nvim',
     },
     build = ":Neorg sync-parsers",
+  },
+
+  {
+    'lukas-reineke/headlines.nvim',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
+    opts = {
+      norg = {
+        fat_headlines = true,
+        fat_headline_upper_string = "▄",
+        fat_headline_lower_string = "▀",
+      },
+    },
   },
 
 -- markdown
