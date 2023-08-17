@@ -1,7 +1,6 @@
 local M            = {}
 local lspconfig    = require 'lspconfig'
 local neodev       = require 'neodev'
-local config       = require 'config'
 local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 --------------------------------------------------------------------------------
 function M.setup()
@@ -28,7 +27,7 @@ function M.setup()
         },
       },
     },
-    on_attach = config.lsp.on_attach,
+    on_attach = require 'config.lsp'.on_attach,
     capabilities = cmp_nvim_lsp.default_capabilities(),
   }
 end

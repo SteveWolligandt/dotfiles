@@ -1,10 +1,9 @@
 local M = {}
 local cland_exts = require("clangd_extensions")
-local config = require('config')
 function M.setup()
   cland_exts.setup {
     server = {
-      on_attach = config.lsp.on_attach,
+      on_attach = require 'config.lsp'.on_attach,
     },
     extensions = {
       -- defaults:
