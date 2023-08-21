@@ -5,10 +5,7 @@ return {
     'BurntSushi/ripgrep',
     'nvim-telescope/telescope-file-browser.nvim',
     'nvim-telescope/telescope-project.nvim',
-    {'stevearc/dressing.nvim', 
-      config = function()
-        require("config.dressing").setup()
-      end},
+    'stevearc/dressing.nvim',
     'nvim-telescope/telescope-dap.nvim',
     {
       'nvim-telescope/telescope-fzf-native.nvim',

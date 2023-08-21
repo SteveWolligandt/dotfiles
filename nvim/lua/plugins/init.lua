@@ -20,6 +20,7 @@ return {
   require 'plugins.toggleterm',
   require 'plugins.nvim-treesitter',
   require 'plugins.colorscheme',
+  require 'plugins.dressing',
   -- require 'plugins.nvim-cmp',
   require 'plugins.nvim-lspconfig',
   require 'plugins.dashboard',

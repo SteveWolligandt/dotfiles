@@ -1,3 +1,5 @@
+oh-my-posh init fish --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/tokyonight_storm.omp.json' | source
+
 set -xg PATH /usr/lib/ccache/bin $PATH
 set -xg PATH $PATH /opt/cuda/bin
 set -g theme_powerline_fonts yes 
