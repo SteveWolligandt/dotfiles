@@ -1,6 +1,5 @@
 local M = {}
 
-local whichkey = require "which-key"
 
 -- local function keymap(lhs, rhs, desc)
 --   vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
@@ -19,6 +18,7 @@ function nmap(lhs, rhs, opts)
 end
 
 function M.setup()
+  local whichkey = require "which-key"
   local keymap = {
     d = {
       name = "Debug",
@@ -68,11 +68,11 @@ function M.setup()
   })
 
   local lua                = ":lua "
-  local cr                = "<CR>"
+  local cr                 = "<CR>"
   local dap                = "require('dap')"
-  local config_dap         = "require('config.dap')"
-  local exec_dir_forward   = config_dap..".execute('-exec set exec-direction forward');"
-  local exec_dir_reverse   = config_dap..".execute('-exec set exec-direction reverse');"
+  local dap_util           = "require('plugins.nvim-dap.util')"
+  local exec_dir_forward   = dap_util..".execute('-exec set exec-direction forward');"
+  local exec_dir_reverse   = dap_util..".execute('-exec set exec-direction reverse');"
   local continue           = dap..".continue();"
   local step_over          = dap..".step_over();"
   local step_into          = dap..".step_into();"
@@ -87,7 +87,7 @@ function M.setup()
   nmap("<F8>",
       lua
       ..toggle_breakpoints
-      ..config_dap..".store_breakpoints(false)"
+      ..dap_util..".store_breakpoints(false)"
       ..cr,
       { silent = true })
   nmap("<F9>",

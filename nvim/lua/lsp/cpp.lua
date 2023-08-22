@@ -1,10 +1,10 @@
 local M = {}
-local cland_exts = require("clangd_extensions")
+local cland_exts   = require("clangd_extensions")
+local lspconfig    = require 'lspconfig'
+local lsp          = require 'lsp'
+local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 function M.setup()
   cland_exts.setup {
-    server = {
-      on_attach = require 'config.lsp'.on_attach,
-    },
     extensions = {
       -- defaults:
       -- Automatically set inlay hints (type hints)
@@ -69,6 +69,14 @@ function M.setup()
         border = "none",
       },
     },
+  }
+  lspconfig.clangd.setup{
+    on_attach    = function(x, bufnr)
+      require("clangd_extensions.inlay_hints").setup_autocmd()
+      require("clangd_extensions.inlay_hints").set_inlay_hints()
+      lsp.on_attach(x, bufnr)
+    end,
+    capabilities = cmp_nvim_lsp.default_capabilities(),
   }
 end
 return M

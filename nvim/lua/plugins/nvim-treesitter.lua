@@ -2,6 +2,9 @@ return {
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   config = function()
-   require("config.treesitter").setup()
+    require('nvim-treesitter.configs').setup {
+      ensure_installed = { 'cpp', 'c', 'python', 'lua', 'java', 'bash' },
+      highlight = { enable = true, }
+    }
   end
 }

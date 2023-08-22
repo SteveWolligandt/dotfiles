@@ -27,7 +27,7 @@ function M.setup()
         },
       },
     },
-    on_attach = require 'config.lsp'.on_attach,
+    on_attach = require 'lsp'.on_attach,
     capabilities = cmp_nvim_lsp.default_capabilities(),
   }
 end

@@ -8,12 +8,12 @@ local clangd_extensions = {
 
 --------------------------------------------------------------------------------
 function M.setup()
-  M.cpp        = require 'config.lsp.cpp'
-  M.python     = require 'config.lsp.python'
-  M.lua        = require 'config.lsp.lua'
-  M.typescript = require 'config.lsp.typescript'
-  M.golang     = require 'config.lsp.golang'
-  M.latex      = require 'config.lsp.latex'
+  M.cpp        = require 'lsp.cpp'
+  M.python     = require 'lsp.python'
+  M.lua        = require 'lsp.lua'
+  M.typescript = require 'lsp.typescript'
+  M.golang     = require 'lsp.golang'
+  M.latex      = require 'lsp.latex'
   -- Mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   local opts = {noremap = true, silent = true}

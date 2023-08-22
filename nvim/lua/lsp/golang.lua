@@ -4,7 +4,7 @@ local cmp_nvim_lsp = require "cmp_nvim_lsp"
 --------------------------------------------------------------------------------
 function M.setup()
   lspconfig.gopls.setup{
-    on_attach = require'config.lsp'.on_attach,
+    on_attach = require'lsp'.on_attach,
     capabilities = cmp_nvim_lsp.default_capabilities(),
   }
 end
