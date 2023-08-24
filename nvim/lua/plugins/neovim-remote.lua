@@ -1,0 +1,3 @@
+return {
+  'mhinz/neovim-remote',
+}
