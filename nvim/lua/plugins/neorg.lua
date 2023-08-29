@@ -7,9 +7,10 @@ return {
       ['core.summary'] = {},
       ['core.journal'] = {},
       ['core.autocommands'] = {},
-      -- ['core.export'] = {config={}},
-      -- ['core.export.markdown'] = {config={}},
-      -- ['core.integrations.treesitter'] = {config={}},
+      ['core.export'] = {config={}},
+      ['core.export.markdown'] = {config={}},
+      ['core.integrations.treesitter'] = {config={}},
+      ['core.ui'] = {},
       -- ['core.ui.calendar'] = {},
       ['core.dirman'] = {
         config = {
@@ -52,8 +53,8 @@ return {
   },
   build = ":Neorg sync-parsers",
   keys = {
-    { '<leader>ni', "<cmd>Neorg index<cr>", desc = "Open Index" },
+    { '<leader>ni', "<cmd>Neorg index<cr>",   desc = "Open Index" },
     { '<leader>nj', "<cmd>Neorg journal<cr>", desc = "Journal" },
-    { '<leader>nt', "<cmd>Neorg toc<cr>", desc = "TOC" },
+    { '<leader>nt', "<cmd>Neorg toc<cr>",     desc = "TOC" },
   },
 }
