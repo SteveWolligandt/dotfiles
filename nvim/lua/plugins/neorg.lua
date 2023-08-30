@@ -11,7 +11,7 @@ return {
       ['core.export.markdown'] = {config={}},
       ['core.integrations.treesitter'] = {config={}},
       ['core.ui'] = {},
-      -- ['core.ui.calendar'] = {},
+      ['core.ui.calendar'] = {},
       ['core.dirman'] = {
         config = {
           workspaces = {
@@ -54,7 +54,9 @@ return {
   build = ":Neorg sync-parsers",
   keys = {
     { '<leader>ni', "<cmd>Neorg index<cr>",   desc = "Open Index" },
-    { '<leader>nj', "<cmd>Neorg journal<cr>", desc = "Journal" },
+    { '<leader>njt', "<cmd>Neorg journal today<cr>", desc = "Open Today's Journal" },
+    { '<leader>njy', "<cmd>Neorg journal today<cr>", desc = "Open Yesterday's Journal" },
     { '<leader>nt', "<cmd>Neorg toc<cr>",     desc = "TOC" },
+    { '<leader>nc', "<cmd>Neorg journal custom<cr>",     desc = "Open Calendar" },
   },
 }
