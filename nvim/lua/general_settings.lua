@@ -1,5 +1,5 @@
 local set = vim.opt
-set.conceallevel  = 1
+set.conceallevel  = 2
 set.concealcursor = 'n'
 set.fillchars     = ''
 set.laststatus    = 2

@@ -108,7 +108,6 @@ function M.on_attach(_, bufnr)
         D = { '<cmd>lua vim.lsp.buf.declaration()<CR>', 'Go to declaration' },
         d = { '<cmd>lua vim.lsp.buf.definition()<CR>', 'Go to definition' },
         t = { '<cmd>lua vim.lsp.buf.type_definition()<CR>', 'Go to type definition' },
-        r = { '<cmd>lua vim.lsp.buf.references()<CR>', 'Go to reference' },
         i = { '<cmd>lua vim.lsp.buf.implementation()<CR>', 'Go to implementation' },
         h = { '<cmd>lua vim.lsp.buf.hover()<CR>', 'Hover' },
       },

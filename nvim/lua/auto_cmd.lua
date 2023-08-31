@@ -3,7 +3,6 @@ local aucmd_dict = {
     {
       pattern = "*",
       callback = function(_)
-        print ('foo')
         require 'plugins.nvim-dap.util'.load_breakpoints()
       end,
     },

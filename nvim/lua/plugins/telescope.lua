@@ -7,6 +7,7 @@ return {
     'nvim-telescope/telescope-project.nvim',
     'stevearc/dressing.nvim',
     'nvim-telescope/telescope-dap.nvim',
+    'rcarriga/nvim-notify',
     {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
@@ -50,6 +51,7 @@ return {
     telescope.load_extension('dap')
     telescope.load_extension('file_browser')
     telescope.load_extension('project')
+    telescope.load_extension("notify")
   end,
   keys = {
     { '<leader>tf', '<cmd>Telescope find_files<cr>', desc = 'Find Files' },
