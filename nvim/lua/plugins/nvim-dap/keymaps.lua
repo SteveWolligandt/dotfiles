@@ -67,8 +67,8 @@ function M.setup()
     nowait = false,
   })
 
-  local lua                = ":lua "
-  local cr                 = "<CR>"
+  local lua                = "<cmd>lua "
+  local cr                 = "<cr>"
   local dap                = "require('dap')"
   local dap_util           = "require('plugins.nvim-dap.util')"
   local exec_dir_forward   = dap_util..".execute('-exec set exec-direction forward');"
@@ -78,36 +78,50 @@ function M.setup()
   local step_into          = dap..".step_into();"
   local step_out           = dap..".step_out();"
   local toggle_breakpoints = dap..".toggle_breakpoint();"
-  nmap("<F5>",
-      lua..exec_dir_reverse..continue..cr,
-      { silent = true })
-  nmap("<F6>",
+  local keymap_F = {
+    ['<F5>'] = {
       lua..exec_dir_forward..continue..cr,
-      { silent = true })
-  nmap("<F8>",
-      lua
-      ..toggle_breakpoints
-      ..dap_util..".store_breakpoints(false)"
-      ..cr,
-      { silent = true })
-  nmap("<F9>",
-      lua..exec_dir_reverse..step_over..cr,
-      { silent = true })
-  nmap("<F10>",
+      'DAP - Continue'
+    },
+    ['<F17>'] = {
+      lua..exec_dir_reverse..continue..cr,
+     'DAP - Reverse Continue'
+    },
+    ['<F8>'] = {
+      lua..toggle_breakpoints..dap_util..'.store_breakpoints(false)'..cr,
+     'DAP - Set Breakpoint'
+    },
+    ['<F9>'] = {
       lua..exec_dir_forward..step_over..cr,
-      { silent = true })
-  nmap("<F11>",
+     'DAP - Step Over'
+    },
+    ['<F21>'] = {
+      lua..exec_dir_forward..step_over..cr,
+     'DAP - Reverse Step Over'
+    },
+    ['<F9>'] = {
       lua..exec_dir_forward..step_into..cr,
-      { silent = true })
-  nmap("<C-F11>",
+     'DAP - Step Into'
+    },
+    ['<F21>'] = {
       lua..exec_dir_reverse..step_into..cr,
-      { silent = true })
-  nmap("<F12>",
+     'DAP - Reverse Step Into'
+    },
+    ['<F10>'] = {
       lua..exec_dir_forward..step_out..cr,
-      { silent = true })
-  nmap("<C-F12>",
+     'DAP - Step Out'
+    },
+    ['<F22>'] = {
       lua..exec_dir_reverse..step_out..cr,
-      { silent = true })
+     'DAP - Reverse Step Out'
+    },
+  }
+  whichkey.register(keymap_F, {
+    mode = "n",
+    silent = true,
+    noremap = true,
+    nowait = false,
+  })
 end
 
 return M

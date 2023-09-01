@@ -46,7 +46,8 @@ local function configure_exts()
 end
 
 local function configure_debuggers()
-  require("plugins.nvim-dap.adapters").setup()
+  require 'plugins.nvim-dap.c++'.setup()
+  require 'plugins.nvim-dap.lua'.setup()
 end
 
 
