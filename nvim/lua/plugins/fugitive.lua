@@ -2,31 +2,19 @@ return {
   'tpope/vim-fugitive',
   config = function()
     local whichkey = require "which-key"
-    local keymap = {
-      g = {
-        name = 'Git',
-        -- g = {'<cmd>:Git<CR>',        'git status'},
-        c = {'<cmd>:Git commit<CR>', 'git commit'},
-        l = {'<cmd>:Git log<CR>',    'git log'},
-        g = {'<cmd>:LazyGit<CR>',    'lazygit'},
-        d = {'<cmd>:Gvdiff<CR>',     'git diff'},
-        b = {'<cmd>:Git blame<CR>',  'git blame'},
-        h = {name = 'Hunk',
-          h = {'<cmd>:Gitsigns preview_hunk<CR>',  'Previews Hunk'},
-          n = {'<cmd>:Gitsigns next_hunk<CR>',  'Jump to next Hunk'},
-          p = {'<cmd>:Gitsigns prev_hunk<CR>',  'Jump to previous Hunk'},
-          u = {'<cmd>:Gitsigns reset_hunk<CR>',  'Undo Hunk'},
-          s = {'<cmd>:Gitsigns stage_hunk<CR>',  'Stage Hunk'},
-        },
-      }
-    }
-    whichkey.register(keymap, {
-      mode = "n",
-      prefix = "<leader>",
-      buffer = nil,
-      silent = true,
-      noremap = true,
-      nowait = false,
+    whichkey.add({
+      { "<leader>g", group = "Git", nowait = false, remap = false },
+      { "<leader>gb", "<cmd>:Git blame<CR>", desc = "git blame", nowait = false, remap = false },
+      { "<leader>gc", "<cmd>:Git commit<CR>", desc = "git commit", nowait = false, remap = false },
+      { "<leader>gd", "<cmd>:Gvdiff<CR>", desc = "git diff", nowait = false, remap = false },
+      { "<leader>gg", "<cmd>:LazyGit<CR>", desc = "lazygit", nowait = false, remap = false },
+      { "<leader>gh", group = "Hunk", nowait = false, remap = false },
+      { "<leader>ghh", "<cmd>:Gitsigns preview_hunk<CR>", desc = "Previews Hunk", nowait = false, remap = false },
+      { "<leader>ghn", "<cmd>:Gitsigns next_hunk<CR>", desc = "Jump to next Hunk", nowait = false, remap = false },
+      { "<leader>ghp", "<cmd>:Gitsigns prev_hunk<CR>", desc = "Jump to previous Hunk", nowait = false, remap = false },
+      { "<leader>ghs", "<cmd>:Gitsigns stage_hunk<CR>", desc = "Stage Hunk", nowait = false, remap = false },
+      { "<leader>ghu", "<cmd>:Gitsigns reset_hunk<CR>", desc = "Undo Hunk", nowait = false, remap = false },
+      { "<leader>gl", "<cmd>:Git log<CR>", desc = "git log", nowait = false, remap = false },
     })
   end,
   dependencies = {

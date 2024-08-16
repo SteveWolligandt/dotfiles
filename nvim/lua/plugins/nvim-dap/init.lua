@@ -67,7 +67,7 @@ return {
   'mfussenegger/nvim-dap',
   dependencies = {
     "theHamsta/nvim-dap-virtual-text",
-    "rcarriga/nvim-dap-ui",
+    {"rcarriga/nvim-dap-ui", dependencies = {'nvim-neotest/nvim-nio'}};
     "mfussenegger/nvim-dap-python",
     "nvim-telescope/telescope-dap.nvim",
   },

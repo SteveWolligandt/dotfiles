@@ -1,70 +1,49 @@
+
 local M = {}
-
-
 -- local function keymap(lhs, rhs, desc)
 --   vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
 -- end
 --
 -- Functional wrapper for mapping custom keybindings
-function map(mode, lhs, rhs, opts)
+local function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then
         options = vim.tbl_extend("force", options, opts)
     end
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
-function nmap(lhs, rhs, opts)
+
+local function nmap(lhs, rhs, opts)
   map('n', lhs, rhs, opts)
 end
 
 function M.setup()
   local whichkey = require "which-key"
-  local keymap = {
-    d = {
-      name = "Debug",
-      R = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run to Cursor" },
-      E = { "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", "Evaluate Input" },
-      C = { "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>", "Conditional Breakpoint" },
-      U = { "<cmd>lua require'dapui'.toggle()<cr>", "Toggle UI" },
-      b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
-      c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
-      d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
-      e = { "<cmd>lua require'dapui'.eval()<cr>", "Evaluate" },
-      g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
-      h = { "<cmd>lua require'dap.ui.widgets'.hover()<cr>", "Hover Variables" },
-      S = { "<cmd>lua require'dap.ui.widgets'.scopes()<cr>", "Scopes" },
-      i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
-      o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
-      p = { "<cmd>lua require'dap'.pause.toggle()<cr>", "Pause" },
-      q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
-      r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
-      s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
-      t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
-      x = { "<cmd>lua require'dap'.terminate()<cr>", "Terminate" },
-      u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
-    },
-  }
+  whichkey.add({
+    { "<leader>d", group = "Debug", nowait = false, remap = false },
+    { "<leader>dC", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>", desc = "Conditional Breakpoint", nowait = false, remap = false },
+    { "<leader>dE", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", desc = "Evaluate Input", nowait = false, remap = false },
+    { "<leader>dR", "<cmd>lua require'dap'.run_to_cursor()<cr>", desc = "Run to Cursor", nowait = false, remap = false },
+    { "<leader>dS", "<cmd>lua require'dap.ui.widgets'.scopes()<cr>", desc = "Scopes", nowait = false, remap = false },
+    { "<leader>dU", "<cmd>lua require'dapui'.toggle()<cr>", desc = "Toggle UI", nowait = false, remap = false },
+    { "<leader>db", "<cmd>lua require'dap'.step_back()<cr>", desc = "Step Back", nowait = false, remap = false },
+    { "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", desc = "Continue", nowait = false, remap = false },
+    { "<leader>dd", "<cmd>lua require'dap'.disconnect()<cr>", desc = "Disconnect", nowait = false, remap = false },
+    { "<leader>de", "<cmd>lua require'dapui'.eval()<cr>", desc = "Evaluate", nowait = false, remap = false },
+    { "<leader>dg", "<cmd>lua require'dap'.session()<cr>", desc = "Get Session", nowait = false, remap = false },
+    { "<leader>dh", "<cmd>lua require'dap.ui.widgets'.hover()<cr>", desc = "Hover Variables", nowait = false, remap = false },
+    { "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", desc = "Step Into", nowait = false, remap = false },
+    { "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", desc = "Step Over", nowait = false, remap = false },
+    { "<leader>dp", "<cmd>lua require'dap'.pause.toggle()<cr>", desc = "Pause", nowait = false, remap = false },
+    { "<leader>dq", "<cmd>lua require'dap'.close()<cr>", desc = "Quit", nowait = false, remap = false },
+    { "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", desc = "Toggle Repl", nowait = false, remap = false },
+    { "<leader>ds", "<cmd>lua require'dap'.continue()<cr>", desc = "Start", nowait = false, remap = false },
+    { "<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", desc = "Toggle Breakpoint", nowait = false, remap = false },
+    { "<leader>du", "<cmd>lua require'dap'.step_out()<cr>", desc = "Step Out", nowait = false, remap = false },
+    { "<leader>dx", "<cmd>lua require'dap'.terminate()<cr>", desc = "Terminate", nowait = false, remap = false },
 
-  whichkey.register(keymap, {
-    mode = "n",
-    prefix = "<leader>",
-    buffer = nil,
-    silent = true,
-    noremap = true,
-    nowait = false,
-  })
-
-  local keymap_v = {
-    name = "Debug",
-    e = { "<cmd>lua require'dapui'.eval()<cr>", "Evaluate" },
-  }
-  whichkey.register(keymap_v, {
-    mode = "v",
-    prefix = "<leader>",
-    buffer = nil,
-    silent = true,
-    noremap = true,
-    nowait = false,
+    { "<leader>", group = "Debug", mode = "v", nowait = false, remap = false },
+    { "<leader>e", "<cmd>lua require'dapui'.eval()<cr>", desc = "Evaluate", mode = "v", nowait = false, remap = false },
   })
 
   local lua                = "<cmd>lua "
@@ -78,49 +57,44 @@ function M.setup()
   local step_into          = dap..".step_into();"
   local step_out           = dap..".step_out();"
   local toggle_breakpoints = dap..".toggle_breakpoint();"
-  local keymap_F = {
-    ['<F5>'] = {
-      lua..exec_dir_forward..continue..cr,
-      'DAP - Continue'
+  whichkey.add({
+    { '<F5>', lua..exec_dir_forward..continue..cr,
+      desc = 'DAP - Continue',
+      nowait = false, remap = false
     },
-    ['<F17>'] = {
+    {'<F17>',
       lua..exec_dir_reverse..continue..cr,
-     'DAP - Reverse Continue'
+     desc = 'DAP - Reverse Continue',
+      nowait = false, remap = false,
     },
-    ['<F8>'] = {
+    {'<F8>', 
       lua..toggle_breakpoints..dap_util..'.store_breakpoints(false)'..cr,
-     'DAP - Set Breakpoint'
+     desc = 'DAP - Set Breakpoint', nowait = false, remap = false,
     },
-    ['<F9>'] = {
+    {'<F9>',
       lua..exec_dir_forward..step_over..cr,
-     'DAP - Step Over'
+     desc = 'DAP - Step Over', nowait = false, remap = false,
     },
-    ['<F21>'] = {
+    {'<F21>',
       lua..exec_dir_forward..step_over..cr,
-     'DAP - Reverse Step Over'
+     desc = 'DAP - Reverse Step Over', nowait = false, remap = false,
     },
-    ['<F9>'] = {
+    {'<F9>',
       lua..exec_dir_forward..step_into..cr,
-     'DAP - Step Into'
+     desc = 'DAP - Step Into', nowait = false, remap = false,
     },
-    ['<F21>'] = {
+    {'<F21>',
       lua..exec_dir_reverse..step_into..cr,
-     'DAP - Reverse Step Into'
+     desc = 'DAP - Reverse Step Into', nowait = false, remap = false,
     },
-    ['<F10>'] = {
+    {'<F10>',
       lua..exec_dir_forward..step_out..cr,
-     'DAP - Step Out'
+     desc = 'DAP - Step Out', nowait = false, remap = false,
     },
-    ['<F22>'] = {
+    {'<F22>',
       lua..exec_dir_reverse..step_out..cr,
-     'DAP - Reverse Step Out'
+     desc = 'DAP - Reverse Step Out', nowait = false, remap = false,
     },
-  }
-  whichkey.register(keymap_F, {
-    mode = "n",
-    silent = true,
-    noremap = true,
-    nowait = false,
   })
 end
 

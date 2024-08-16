@@ -19,17 +19,10 @@ function M.setup()
   local opts = {noremap = true, silent = true}
   vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  whichkey.register({
-      e = { '<cmd>lua vim.diagnostic.open_float()<CR>', 'Open Float' },
-      q = { '<cmd>lua vim.diagnostic.setloclist()<CR>', 'Set Loc List' },
-    },
-    {
-      mode = "n",
-      prefix = "<space>",
-      silent = true,
-      noremap = true,
-      nowait = false,
-    })
+  whichkey.add({
+    { "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "Open Float", nowait = false, remap = false },
+    { "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", desc = "Set Loc List", nowait = false, remap = false },
+  })
 
   M.cpp.setup()
   M.python.setup()
@@ -95,50 +88,31 @@ end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 function M.on_attach(_, bufnr)
-  print('attached')
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  whichkey.register({
-    name = 'LSP',
-      g = {
-        name = "Go to...",
-        D = { '<cmd>lua vim.lsp.buf.declaration()<CR>', 'Go to declaration' },
-        d = { '<cmd>lua vim.lsp.buf.definition()<CR>', 'Go to definition' },
-        t = { '<cmd>lua vim.lsp.buf.type_definition()<CR>', 'Go to type definition' },
-        i = { '<cmd>lua vim.lsp.buf.implementation()<CR>', 'Go to implementation' },
-        h = { '<cmd>lua vim.lsp.buf.hover()<CR>', 'Hover' },
-      },
-    },
-    {
-      mode = "n",
-      silent = true,
-      noremap = true,
-      nowait = false,
-    })  whichkey.register({
-    name = 'LSP',
-      q = { '<cmd>lua vim.diagnostic.setloclist()<CR>', 'Set Loc List' },
-      k = { '<cmd>lua vim.lsp.buf.signature_help()<CR>', 'Signature Help' },
-      w = {name = 'Workspace',
-        a = {'<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', 'Add workspace folder'},
-        r = {'<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', 'Remove workspace folder'},
-        l = {'<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', 'List workspace folders'},
-      },
-      r = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Refactor Name'},
-      c = {
-        a = {'<cmd>lua vim.lsp.buf.code_action()<CR>', 'Code Action'},
-      },
-      f = {'<cmd>lua vim.lsp.buf.formatting()<CR>', 'Formatting'},
-    },
-    {
-      mode = "n",
-      prefix = "<space>",
-      silent = true,
-      noremap = true,
-      nowait = false,
-    })
+  whichkey.add({
+    { "g", group = "Go to...", nowait = false, remap = false },
+    { "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration", nowait = false, remap = false },
+    { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to definition", nowait = false, remap = false },
+    { "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover", nowait = false, remap = false },
+    { "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Go to implementation", nowait = false, remap = false },
+    { "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", desc = "Go to type definition", nowait = false, remap = false },
+  })
+  whichkey.add({
+    { "<space>", group = "LSP", nowait = false, remap = false },
+    { "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code Action", nowait = false, remap = false },
+    { "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", desc = "Formatting", nowait = false, remap = false },
+    { "<space>k", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Signature Help", nowait = false, remap = false },
+    { "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", desc = "Set Loc List", nowait = false, remap = false },
+    { "<space>r", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "Refactor Name", nowait = false, remap = false },
+    { "<space>w", group = "Workspace", nowait = false, remap = false },
+    { "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", desc = "Add workspace folder", nowait = false, remap = false },
+    { "<space>wl", "<cmd>lua vim.notify(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", desc = "List workspace folders", nowait = false, remap = false },
+    { "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", desc = "Remove workspace folder", nowait = false, remap = false },
+  })
 end
 --------------------------------------------------------------------------------
 return M
