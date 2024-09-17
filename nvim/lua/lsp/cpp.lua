@@ -1,8 +1,10 @@
 local M = {}
-local cland_exts   = require("clangd_extensions")
+--------------------------------------------------------------------------------
+local cland_exts   = require 'clangd_extensions'
 local lspconfig    = require 'lspconfig'
 local lsp          = require 'lsp'
 local cmp_nvim_lsp = require 'cmp_nvim_lsp'
+--------------------------------------------------------------------------------
 function M.setup()
   cland_exts.setup {
     extensions = {
