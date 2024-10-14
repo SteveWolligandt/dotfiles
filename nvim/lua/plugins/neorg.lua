@@ -1,10 +1,16 @@
 return {
   "nvim-neorg/neorg",
-  version = "*",
+  -- version = "*",
   lazy = false,
+  -- config = true,
   opts = {
     load = {
       ['core.defaults'] = {},
+      ['core.completion'] = {
+        config = {
+          engine = "nvim-cmp",
+        },
+      },
       ['core.neorgcmd'] = {},
       ['core.summary'] = {},
       ['core.journal'] = {},
@@ -17,9 +23,10 @@ return {
       ['core.dirman'] = {
         config = {
           workspaces = {
-            notes = '~/notes',
+            general     = "G:/My Drive/Neorg/general",
+            juice_detox = "G:/My Drive/Neorg/juice_detox",
           },
-          default_workspace='notes'
+          default_workspace='juice_detox'
         }
       },
       ['core.qol.todo_items'] = {
@@ -28,6 +35,7 @@ return {
           create_todo_parents = true,
         },
       },
+      -- ['core.integrations.image'] = {},
       ['core.concealer'] = {
         config = {
           icons = {
@@ -43,6 +51,7 @@ return {
     'nvim-neorg/lua-utils.nvim',
     'nvim-lua/plenary.nvim',
     'lukas-reineke/headlines.nvim',
+    'luarocks.nvim',
   },
   build = ':Neorg sync-parsers',
   keys = {

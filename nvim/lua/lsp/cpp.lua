@@ -1,11 +1,21 @@
 local M = {}
 --------------------------------------------------------------------------------
-local cland_exts   = require 'clangd_extensions'
-local lspconfig    = require 'lspconfig'
-local lsp          = require 'lsp'
-local cmp_nvim_lsp = require 'cmp_nvim_lsp'
---------------------------------------------------------------------------------
 function M.setup()
+  local clangd_cmd = vim.fs.joinpath(vim.fn.stdpath('data'), 'mason', 'bin', 'clangd')
+
+  local lsp            = require 'lsp'
+  local cland_exts     = require 'clangd_extensions'
+  local lspconfig      = require 'lspconfig'
+  local cmp_nvim_lsp   = require 'cmp_nvim_lsp'
+  local mason_registry = require 'mason-registry'
+
+  if not mason_registry.is_installed('clangd') then
+    vim.notify('clangd')
+    return
+  end
+
+  local clangd = mason_registry.get_package('clangd')
+  
   cland_exts.setup {
     extensions = {
       -- defaults:
@@ -16,17 +26,17 @@ function M.setup()
         -- Only show inlay hints for the current line
         only_current_line = false,
         -- Event which triggers a refresh of the inlay hints.
-        -- You can make this "CursorMoved" or "CursorMoved,CursorMovedI" but
+        -- You can make this 'CursorMoved' or 'CursorMoved,CursorMovedI' but
         -- not that this may cause higher CPU usage.
         -- This option is only respected when only_current_line and
         -- autoSetHints both are true.
-        only_current_line_autocmd = "CursorHold",
+        only_current_line_autocmd = 'CursorHold',
         -- whether to show parameter hints with the inlay hints or not
         show_parameter_hints = true,
         -- prefix for parameter hints
-        parameter_hints_prefix = "<- ",
+        parameter_hints_prefix = '<- ',
         -- prefix for all the other hints (type, chaining)
-        other_hints_prefix = "=> ",
+        other_hints_prefix = '=> ',
         -- whether to align to the length of the longest line in the file
         max_len_align = false,
         -- padding from the left if max_len_align is true
@@ -36,46 +46,47 @@ function M.setup()
         -- padding from the right if right_align is true
         right_align_padding = 7,
         -- The color of the hints
-        highlight = "Comment",
+        highlight = 'Comment',
         -- The highlight group priority for extmark
         priority = 100,
       },
       ast = {
         role_icons = {
-          type = "",
-          declaration = "",
-          expression = "",
-          specifier = "",
-          statement = "",
-          ["template argument"] = "",
+          type = '',
+          declaration = '',
+          expression = '',
+          specifier = '',
+          statement = '',
+          ['template argument'] = '',
         },
 
         kind_icons = {
-          Compound = "",
-          Recovery = "",
-          TranslationUnit = "",
-          PackExpansion = "",
-          TemplateTypeParm = "",
-          TemplateTemplateParm = "",
-          TemplateParamObject = "",
+          Compound = '',
+          Recovery = '',
+          TranslationUnit = '',
+          PackExpansion = '',
+          TemplateTypeParm = '',
+          TemplateTemplateParm = '',
+          TemplateParamObject = '',
         },
 
         highlights = {
-          detail = "Comment",
+          detail = 'Comment',
         },
       },
       memory_usage = {
-        border = "none",
+        border = 'none',
       },
       symbol_info = {
-        border = "none",
+        border = 'none',
       },
     },
   }
   lspconfig.clangd.setup{
+    cmd = {clangd_cmd},
     on_attach    = function(x, bufnr)
-      require("clangd_extensions.inlay_hints").setup_autocmd()
-      require("clangd_extensions.inlay_hints").set_inlay_hints()
+      require('clangd_extensions.inlay_hints').setup_autocmd()
+      require('clangd_extensions.inlay_hints').set_inlay_hints()
       lsp.on_attach(x, bufnr)
     end,
     capabilities = cmp_nvim_lsp.default_capabilities(),

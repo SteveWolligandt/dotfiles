@@ -1,12 +1,20 @@
-local M            = {}
-local lspconfig    = require 'lspconfig'
-local neodev       = require 'neodev'
-local cmp_nvim_lsp = require 'cmp_nvim_lsp'
+local M = {}
 --------------------------------------------------------------------------------
 function M.setup()
-  neodev.setup{}
+  local mason_registry = require 'mason-registry'
+  if not mason_registry.is_installed('lua-language-server') then
+    vim.notify('lua-language-server not found', 'error', {title = 'lsp'})
+    return
+  end
 
-  lspconfig.lua_ls.setup{
+  local luals_cmd = vim.fs.joinpath(vim.fn.stdpath('data'), 'mason', 'bin', 'lua-language-server')
+
+  local lsp            = require 'lsp'
+  local cmp_nvim_lsp   = require 'cmp_nvim_lsp'
+  local lspconfig      = require 'lspconfig'
+
+  lspconfig.lua_ls.setup {
+    cmd = { luals_cmd },
     settings = {
       Lua = {
         -- runtime = {
@@ -14,7 +22,7 @@ function M.setup()
         --   version = 'LuaJIT',
         -- },
         workspace = {
-        --   -- Make the server aware of Neovim runtime files
+        -- Make the server aware of Neovim runtime files
         --   library = vim.api.nvim_get_runtime_file("", true),
           checkThirdParty = false,
         },
@@ -27,7 +35,7 @@ function M.setup()
         },
       },
     },
-    on_attach = require 'lsp'.on_attach,
+    on_attach = lsp.on_attach,
     capabilities = cmp_nvim_lsp.default_capabilities(),
   }
 end

@@ -10,13 +10,17 @@ return {
     local mason     = require 'mason'
     local lspconfig = require 'mason-lspconfig'
     local dapconfig = require 'mason-nvim-dap'
-    mason.setup()
-    local lsps = { 'lua_ls', 'jdtls', 'texlab' }
+
+    mason.setup{}
+
+    local lsps = { 'lua_ls', 'jdtls', 'texlab', 'clangd' }
     local daps = { 'cppdbg' }
+
     if vim.fn.executable('npm') == 1 then
       table.insert(lsps, 'pyright')
-      table.insert(lsps, 'tsserver')
+      table.insert(lsps, 'ts_ls')
     end
+
     if vim.fn.executable('go') == 1 then
       table.insert(lsps, 'gopls')
     end
